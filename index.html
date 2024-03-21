@@ -317,7 +317,7 @@
           $(document).on('click', '#addProductButton', function () {
               console.log("Submit button clicked"); // Debug statement
       
-              alertify.success("CLICKED");
+             // alertify.success("CLICKED");
       
               var formData = new FormData();
               formData.append('productName', $('#productName').val());
@@ -344,7 +344,9 @@
                       if (response.trim() === 'Product inserted successfully') {
                           alertify.success('Product added successfully');
                           $('#addProduct').modal('hide');
-                          location.reload(); // Reload the page to update product list
+                          setTimeout(function () {
+                              location.reload();
+                          }, 2000);
                       } else {
                           alertify.error('Failed to add product: ' + response);
                           $('#addProductButton').prop('disabled', false).html('Submit');
@@ -424,9 +426,9 @@
               displayCartItems();
           
               // Reload the page after a delay (e.g., 2000 milliseconds = 2 seconds)
-              setTimeout(function () {
-                  location.reload();
-              }, 2000);
+             //  setTimeout(function () {
+            //       location.reload();
+             //  }, 2000);
           });
           
           // Function to display cart items
