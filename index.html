@@ -301,9 +301,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script type="text/javascript">
 
-     // $(function() {
-     //     $('#modalContainer').load('modal.html');
-    //  });
+    
       function imgSlider(anything){
         document.querySelector('.starbucks').src = anything;
       }
@@ -457,11 +455,19 @@
         $.ajax({
             url: 'fetchProduct.php',
             success: function (data) { 
-                $('#content').append(data);
-                console.log(data);
+                if (data.trim() === '') {
+                    $('#content').append('<div><p>NO PRODUCTS AVAILABLE</p></div>');
+                } else {
+                    $('#content').append(data);
+                }
+            },
+            error: function () {
+                $('#content').append('<div><p>Error loading products. Please try again later.</p></div>');
             }
-        })
+        });
     }
+  
+  
     </script>
   </body>
 </html>
