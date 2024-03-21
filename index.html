@@ -338,8 +338,8 @@
                       $('#addProductButton').prop('disabled', true).html('<i class="fa fa-spinner fa-spin"></i> Submitting...');
                   },
                   success: function (response) {
-                      console.log("AJAX request successful"); // Debug statement
-                      console.log("Response:", response); // Debug statement
+                      console.log("AJAX request successful"); 
+                      console.log("Response:", response); // check response  from server uo xd
       
                       if (response.trim() === 'Product inserted successfully') {
                           alertify.success('Product added successfully');
