@@ -44,13 +44,11 @@
         background-color: transparent; /* aalisin niya yung background color */
         backdrop-filter: blur(20px); /* then eto papalit, blur effect */
       }
-      
       .nav-link {
         color: white;
         font-weight: 500;
         transition: color 0.3s ease 
       }
-      
       .nav-link.scrolled {
         color: #000000;
         font-weight: 500;
@@ -59,7 +57,14 @@
         color: #006341; 
         font-weight: 500;
       }
+      #mugIcon {
+        color: white;
+        transition: color 0.3s ease; /* Smooth transition effect for icon color */
+      }
       
+      #mugIcon.scrolled {
+        color: #000000; /* Change icon color when scrolled */
+      }
     </style>
   </head>
   <body class="">
@@ -74,7 +79,7 @@
           </div>
           <div>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent">
-              <i class="fa-solid fa-mug-hot" style="color: white"></i>
+              <i class="fa-solid fa-mug-hot" id="mugIcon"></i>
             </button>
           </div>
         </div>
@@ -259,12 +264,16 @@
           document.getElementById("navbar").classList.add("blurred");
           const navLinks = document.querySelectorAll(".nav-link");
           navLinks.forEach(link => link.classList.add("scrolled"));
+          document.getElementById("mugIcon").classList.add("scrolled"); // Add scrolled class to the icon
         } else {
           document.getElementById("navbar").classList.remove("blurred");
           const navLinks = document.querySelectorAll(".nav-link");
           navLinks.forEach(link => link.classList.remove("scrolled"));
+          document.getElementById("mugIcon").classList.remove("scrolled"); // Remove scrolled class from the icon
         }
       }
+      //end of function for navbarrr
+      
     
       function imgSlider(anything){
         document.querySelector('.starbucks').src = anything;

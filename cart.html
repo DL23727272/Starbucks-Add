@@ -28,13 +28,11 @@
         background-color: transparent; /* aalisin niya yung background color */
         backdrop-filter: blur(20px); /* then eto papalit, blur effect */
       }
-      
       .nav-link {
         color: white;
         font-weight: 500;
         transition: color 0.3s ease 
       }
-      
       .nav-link.scrolled {
         color: #000000;
         font-weight: 500;
@@ -42,6 +40,14 @@
       .nav-link.scrolled:hover {
         color: #006341; 
         font-weight: 500;
+      }
+      #mugIcon {
+        color: white;
+        transition: color 0.3s ease; 
+      }
+      
+      #mugIcon.scrolled {
+        color: #000000;
       }
     </style>
   </head>
@@ -57,7 +63,7 @@
           </div>
           <div>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent">
-              <i class="fa-solid fa-mug-hot" style="color: white"></i>
+              <i class="fa-solid fa-mug-hot" id="mugIcon"></i>
             </button>
           </div>
         </div>
@@ -166,7 +172,7 @@
     
 
     <script type="text/javascript">
-        //For navbar
+         //For navbar
         window.onscroll = function () { scrollFunction() };
 
         function scrollFunction() {
@@ -174,12 +180,16 @@
             document.getElementById("navbar").classList.add("blurred");
             const navLinks = document.querySelectorAll(".nav-link");
             navLinks.forEach(link => link.classList.add("scrolled"));
+            document.getElementById("mugIcon").classList.add("scrolled"); // Add scrolled class to the icon
           } else {
             document.getElementById("navbar").classList.remove("blurred");
             const navLinks = document.querySelectorAll(".nav-link");
             navLinks.forEach(link => link.classList.remove("scrolled"));
+            document.getElementById("mugIcon").classList.remove("scrolled"); // Remove scrolled class from the icon
           }
         }
+      //end of function for navbarrr
+      
 
        alertify.set('notifier', 'position', 'top-right');
        alertify.set('notifier', 'delay', 5);
