@@ -336,7 +336,7 @@
             $('#close').click(function(){
               parseInt($('#quantity').val(quantity = 0))
               $('#total').hide()
-              //mahirap na bug requires modern solution refreshing para di mag double yung Qt sa modal
+              //mahirap na bug requires modern solution reload para di mag double yung Qt sa modal
               setTimeout(function () {
                   location.reload();
               }, 10);
