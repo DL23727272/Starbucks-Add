@@ -204,6 +204,7 @@
       </div>
     </section>
     
+    
     <!---Footer-->
     <footer class="mt-5 text-white p-3" style="background-color: #006341;">
       <div class="container-sm d-flex justify-content-between align-items-center">
@@ -230,10 +231,11 @@
     </footer>
 
      <!---End Footer-->
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+     <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
     <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script type="text/javascript">
+
     
       function imgSlider(anything){
         document.querySelector('.starbucks').src = anything;
@@ -241,7 +243,6 @@
 
       alertify.set('notifier', 'position', 'top-right');
       alertify.set('notifier', 'delay', 5);
-
       loadProducts();      
       // para sa modal add product
       $(document).ready(function () {
@@ -294,6 +295,8 @@
               });
           });
       }); 
+    
+    
 
       $(document).ready(function () {
 
@@ -333,6 +336,10 @@
             $('#close').click(function(){
               parseInt($('#quantity').val(quantity = 0))
               $('#total').hide()
+              //mahirap na bug requires modern solution refreshing para di mag double yung Qt sa modal
+              setTimeout(function () {
+                  location.reload();
+              }, 10);
             })
 
             $('#buy').click(function () {
