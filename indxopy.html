@@ -212,65 +212,19 @@
       </div>
     </section> -->
     
+    <!-- -Modal-->
     
-  <!---Modal-->
-  <div class="modal" tabindex="-1" id="modalProduct">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="fruitname"></h5>
-          <button
-            type="button"
-            class="btn-close"
-            data-bs-dismiss="modal"
-            aria-label="Close"
-          ></button>
-        </div>
-        <div class="modal-body">
-          <img src="" id="fruitimage" alt="" />
-          <hr class="border-success border-2"/>
-          <h4 class="card-title" id="fruitname"></h4>
-          <p class="card-text" id="fruitdetail"></p>
-          <p class="card-text" id="fruitprice"></p>
-          <div class="d-flex gap-2">
-            <button class="btn btn-warning" id="decrement">-</button>
-            <input class="form-control w-25 text-center text-secondary" id="quantity" value="0"></p>
-            <button class="btn btn-warning" id="increment">+</button>
-          </div>
-        
-            <div class="d-flex align-items-center mt-3">Total:
-              <input class="form-control border-0 bg-transparent text-secondary" id="total" disabled/>
-            </div>
-         
-        </div>
-        <div class="modal-footer">
-          <button
-            type="button"
-            class="btn btn-secondary"
-            data-bs-dismiss="modal"
-            id="close"
-          >
-            Close
-          </button>
-          <button
-            type="button"
-            class="btn text-white"
-            style="background-color: #006341"
-            id="buy"
-            data-bs-dismiss="modal"
-          >
-            Add to cart
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!---End Modal-->
+    <!---End Modal -->
 
     <!---Footer-->
     <footer class="mt-5 text-white p-3" style="background-color: #006341;">
 
-     
+      <!--
+        You may not copy, reproduce, distribute, publish, display, perform, modify, create derivative works, transmit, 
+        or in any way exploit any such content, nor may you distribute any part of this content over any network, including a local area network, 
+        sell or offer it for sale, or use such content to construct any kind of database. You may not alter or remove any copyright or 
+        other notice from copies of the content on AI Tech’s website. 
+      -->
 
       <div class="container-sm d-flex justify-content-between align-items-center">
         <div class="">
@@ -361,90 +315,112 @@
 
       $(document).ready(function () {
 
+        $('#total').hide();
         $('#modalContainer').load('modal.html');
-
-        $('#total').hide()
+    
+        // Function to load modal content
+        function loadModalContent(productId, productName, productImage, productDetail, productPrice) {
+            $('#modalContainer').load('modal.html', function () {
+                $("#modalProduct #fruitname").text(productName);
+                $("#modalProduct #fruitprice").text("Php " + productPrice);
+                $("#modalProduct #fruitdetail").text(productDetail);
+                $("#modalProduct #fruitimage").attr("src", "/3rdyr/starbuckz/products/" + productImage);
+            });
+        }
+    
         $(".addtocart").click(function () {
-          
+    
             var productId = $(this).data("product-id");
             var productName = $(this).data("product-name");
             var productImage = $(this).data("product-image");
             var productDetail = $(this).data("product-detail");
             var productPrice = $(this).data("product-price");
-
-            //ayaw magpakita yung picture sa modal 
-            console.log("Product Image URL:", productImage);
-
-            $("#modalProduct #fruitname").text(productName);
-            $("#modalProduct #fruitprice").text("Php " + productPrice);
-            $("#modalProduct #fruitdetail").text(productDetail);
-            $("#modalProduct #fruitimage").attr("src", "/3rdyr/starbuckz/products/" + productImage); //kelangan pala yunf directory lols my ghad sayang 30 mins
-
+    
+            // Load modal content with the clicked item's details
+            loadModalContent(productId, productName, productImage, productDetail, productPrice);
+    
+            // Declare the quantity variable outside the click event handlers
+            let quantity = 0;
+    
             $("#increment").click(function () {
-            let quantity = parseInt($("#quantity").val());
-            let parsePrice = parseInt($('#quantity').val(quantity += 1))
-            $('#total').show()
-            parseInt($('#total').val( productPrice * (quantity += 0)))
-          });
-
-          $("#decrement").click(function () {
-            let quantity = parseInt($("#quantity").val());
-            let parsePrice = parseInt($('#quantity').val(quantity -= 1))
-            $('#total').show()
-            parseInt($('#total').val( productPrice * (quantity -= 0)))
-          });
-
-          $('#close').click(function(){
-            parseInt($('#quantity').val(quantity = 0))
-            $('#total').hide()
-          })
-
-          $('#buy').click(function () {
-              alertify.success('Item added to cart!');
-
-              var productId = $("#modalProduct .addtocart").data("product-id");
-              var productPrice = parseFloat($("#modalProduct #total").val());
-              var quantity = parseInt($("#quantity").val());
-              var total = productPrice ;
-          
-              // Create an object to represent the cart item
-              var cartItem = {
-                  productId: productId,
-                  productName: productName,
-                  productPrice: productPrice,
-                  quantity: quantity,
-                  total: total
-              };
-          
-              // Store the cart item in localStorage
-              var cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
-              cartItems.push(cartItem);
-              localStorage.setItem("cartItems", JSON.stringify(cartItems));
-          
-              // Clear the quantity after adding to cart
-              $("#quantity").val(0);
-          
-              // Display updated cart items
-              displayCartItems();
-          
-              // Reload the page after a delay (e.g., 2000 milliseconds = 2 seconds)
-              setTimeout(function () {
-                   location.reload();
-               }, 2000);
-          });
-          
-          // Function to display cart items
-          function displayCartItems() {
+                // Increment the quantity
+                quantity++;
+                // Update the input field value
+                $("#quantity").val(quantity);
+                // Show the total
+                $('#total').show();
+                // Calculate and update the total value
+                $('#total').val(productPrice * quantity);
+            });
+    
+            $("#decrement").click(function () {
+                // Ensure quantity doesn't go below 0
+                if (quantity > 0) {
+                    // Decrement the quantity
+                    quantity--;
+                    // Update the input field value
+                    $("#quantity").val(quantity);
+                    // Show the total
+                    $('#total').show();
+                    // Calculate and update the total value
+                    $('#total').val(productPrice * quantity);
+                }
+            });
+    
+            $('#close').click(function () {
+                parseInt($('#quantity').val(quantity = 0));
+                $('#total').hide();
+            });
+    
+            $('#buy').click(function () {
+                alertify.success('Item added to cart!');
+    
+                var productPrice = parseFloat($("#modalProduct #total").val());
+                var quantity = parseInt($("#quantity").val());
+                var total = productPrice * quantity;
+    
+                // Create an object to represent the cart item
+                var cartItem = {
+                    productId: productId,
+                    productName: productName,
+                    productPrice: productPrice,
+                    quantity: quantity,
+                    total: total
+                };
+    
+                // Store the cart item in localStorage
                 var cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
+                cartItems.push(cartItem);
+                localStorage.setItem("cartItems", JSON.stringify(cartItems));
+    
+                // Clear the quantity after adding to cart
+                $("#quantity").val(0);
+    
+                // Reload the modal content
+                loadModalContent();
+    
+                // Reload the page after a delay (e.g., 2000 milliseconds = 2 seconds)
+                setTimeout(function () {
+                    location.reload();
+                }, 2000);
+    
+            });
+    
+            // Function to display cart items
+            function displayCartItems() {
+                var cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
+    
+    
                 var cartOutput = "Product Name\tQuantity\tTotal\n";
-          }
-            
+            }
+    
             // Display cart items when the page loads
             displayCartItems();
-            
-      
-      });
+    
+    
+        });
     });
+    
 
     loadProducts();      
 
