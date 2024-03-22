@@ -203,75 +203,9 @@
         ></div>
       </div>
     </section>
-    <!-- <section class="">
-      <div class="container-sm">
-        <div
-          class="d-flex gap-3 overflow-x-scroll w-100"
-          id="displayProducts"
-        ></div>
-      </div>
-    </section> -->
     
-    
-    <!---Modal-->
-    <div class="modal" tabindex="-1" id="modalProduct">
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="fruitname"></h5>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
-          </div>
-          <div class="modal-body">
-            <img src="" id="fruitimage" alt="" />
-            <hr class="border-success border-2"/>
-            <h4 class="card-title" id="fruitname"></h4>
-            <p class="card-text" id="fruitdetail"></p>
-            <p class="card-text" id="fruitprice"></p>
-            <div class="d-flex gap-2">
-              <button class="btn btn-warning" id="decrement">-</button>
-              <input class="form-control w-25 text-center text-secondary" id="quantity" value="0"></p>
-              <button class="btn btn-warning" id="increment">+</button>
-            </div>
-          
-              <div class="d-flex align-items-center mt-3">Total:
-                <input class="form-control border-0 bg-transparent text-secondary" id="total" disabled/>
-              </div>
-          
-          </div>
-          <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-secondary"
-              data-bs-dismiss="modal"
-              id="close"
-            >
-              Close
-            </button>
-            <button
-              type="button"
-              class="btn text-white"
-              style="background-color: #006341"
-              id="buy"
-              data-bs-dismiss="modal"
-            >
-              Add to cart
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!---End Modal-->
-
     <!---Footer-->
     <footer class="mt-5 text-white p-3" style="background-color: #006341;">
-
-     
-
       <div class="container-sm d-flex justify-content-between align-items-center">
         <div class="">
           <h4>AI Tech</h4>
@@ -285,18 +219,21 @@
           </ul>
         </div>
         <div class="">
-          <div><img src="./img/top.png" style="width: 50px; height: 50px;" alt=""></div>
-         <div><p class="fst-bold">&copy; 2024; Bebekels</p></div>
+          <div>
+            <img src="./img/top.png" style="width: 50px; height: 50px;" alt="">
+          </div>
+          <div>
+            <p class="fst-bold">&copy; 2024; Bebekels</p>
+          </div>
         </div>
       </div>
     </footer>
 
      <!---End Footer-->
-     <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
     <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script type="text/javascript">
-
     
       function imgSlider(anything){
         document.querySelector('.starbucks').src = anything;
@@ -304,6 +241,7 @@
 
       alertify.set('notifier', 'position', 'top-right');
       alertify.set('notifier', 'delay', 5);
+
       loadProducts();      
       // para sa modal add product
       $(document).ready(function () {
@@ -356,8 +294,6 @@
               });
           });
       }); 
-    
-    
 
       $(document).ready(function () {
 

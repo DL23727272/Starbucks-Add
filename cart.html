@@ -184,7 +184,7 @@
                 cartTableBody.innerHTML = "";
                 var totalAmount = 0;
 
-                // Iterate through each cart item and append to the table
+                // Iterate sa each cart item and append to the table
                 cartItems.forEach(function (item, index) {
                     // Handle null or undefined total values
                     var total = item.total || 0;
@@ -221,8 +221,8 @@
           // Retrieve the cart items from localStorage
           var cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
           setTimeout(function () {
-              location.reload();
-            }, 1000);
+            location.reload();
+          }, 1000);
 
           // Check if the index is valid
           if (index >= 0 && index < cartItems.length) {
@@ -238,12 +238,7 @@
             alertify.error('Invalid index for canceling item!');
           }
         }
-        /*
-            You may not copy, reproduce, distribute, publish, display, perform, modify, create derivative works, transmit, 
-            or in any way exploit any such content, nor may you distribute any part of this content over any network, including a local area network, 
-            sell or offer it for sale, or use such content to construct any kind of database. You may not alter or remove any copyright or 
-            other notice from copies of the content on AI Tech’s website. 
-          */
+       
        
     </script>
     

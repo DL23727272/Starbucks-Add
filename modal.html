@@ -1,48 +1,46 @@
-
+<!-- PROPER INDENTATION BY DL -->
 
   <!---ADD  PRODUCT MODAL--->
   <div class="modal fade" id="addProduct" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle" aria-hidden="true" >
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content " style="background-color:black">
             <div class="modal-header custom-modal ">
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i class="fa-solid fa-xmark"  style="color: #ffffff;"></i></button> 
-            <div class="col-sm">
-                <!-- <img src="images/x_Logo.png" alt="" class="logo-img"> -->
-            </div>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i class="fa-solid fa-xmark"  style="color: #ffffff;"></i></button> 
+                <div class="col-sm">
+                    <!-- <img src="images/x_Logo.png" alt="" class="logo-img"> -->
+                </div>
             </div>
             <div class="container align-items-center justify-content-center DL" >
                 <div class="row ">
-                <div class="col-sm content">
-                    <div class="w-100"></div>
-                    <br>
-                    <div class="col-sm">
-                        <h1 class="font-weight-bold text-light" style="font-size: 20px;">Add Product</h1>
-                    </div>
-                    <br>
-                    <form enctype="multipart/form-data" method="POST">
-                        <div class="form-group my-2">
-                            <input type="text" name="productName" id="productName" placeholder="Enter Product Name" class="form-control">
+                    <div class="col-sm content">
+                        <div class="w-100"></div>
+                        <br>
+                        <div class="col-sm">
+                            <h1 class="font-weight-bold text-light" style="font-size: 20px;">Add Product</h1>
                         </div>
-                        <div class="form-group my-2">
-                            <input type="text" name="productPrice" id="productPrice" placeholder="Enter Product Price" class="form-control">
-                        </div>
-                        <div class="form-group my-2">
-                            <textarea  type="text" name="productDescription" id="productDescription" placeholder="Enter Product Description" class="form-control"></textarea>
-                        </div>
-                        <div class="form-group my-2">
-                          <input type="file" name="image" id="productImageName" placeholder="Enter Product Image Name" class="form-control">
-                        </div>
-                        <div class="form-group row justify-content-end"> 
-                            <div class="col-auto">
-                                <button type="button" id="addProductButton" class="btn btn-outline-light">Submit</button>
+                        <br>
+                        <form enctype="multipart/form-data" method="POST">
+                            <div class="form-group my-2">
+                                <input type="text" name="productName" id="productName" placeholder="Enter Product Name" class="form-control">
                             </div>
-                        </div>
-                    </form>
-                    <br>
-                    <br>
-                    
-                </div>
-                
+                            <div class="form-group my-2">
+                                <input type="text" name="productPrice" id="productPrice" placeholder="Enter Product Price" class="form-control">
+                            </div>
+                            <div class="form-group my-2">
+                                <textarea  type="text" name="productDescription" id="productDescription" placeholder="Enter Product Description" class="form-control"></textarea>
+                            </div>
+                            <div class="form-group my-2">
+                            <input type="file" name="image" id="productImageName" placeholder="Enter Product Image Name" class="form-control">
+                            </div>
+                            <div class="form-group row justify-content-end"> 
+                                <div class="col-auto">
+                                    <button type="button" id="addProductButton" class="btn btn-outline-light">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                        <br>
+                        <br>
+                    </div>
                 </div>
             </div>
         </div>
@@ -51,56 +49,47 @@
 <!--End modal-->
 
    
-  <!---Modal-->
-  <div class="modal" tabindex="-1" id="modalProduct">
+<!---Modal Product-->
+<div class="modal" tabindex="-1" id="modalProduct">
     <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="fruitname"></h5>
-          <button
-            type="button"
-            class="btn-close"
-            data-bs-dismiss="modal"
-            aria-label="Close"
-          ></button>
-        </div>
-        <div class="modal-body">
-          <img src="" id="fruitimage" alt="" />
-          <hr class="border-success border-2"/>
-          <h4 class="card-title" id="fruitname"></h4>
-          <p class="card-text" id="fruitdetail"></p>
-          <p class="card-text" id="fruitprice"></p>
-          <div class="d-flex gap-2">
-            <button class="btn btn-warning" id="decrement">-</button>
-            <input class="form-control w-25 text-center text-secondary" id="quantity" value="0"></p>
-            <button class="btn btn-warning" id="increment">+</button>
-          </div>
-        
-            <div class="d-flex align-items-center mt-3">Total:
-              <input class="form-control border-0 bg-transparent text-secondary" id="total" disabled/>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="fruitname"></h5>
+                <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+                ></button>
             </div>
-         
+            <div class="modal-body">
+
+                <img src="" id="fruitimage" alt="" />
+
+                <hr class="border-success border-2"/>
+                <h4 class="card-title" id="fruitname"></h4>
+                <p class="card-text" id="fruitdetail"></p>
+                <p class="card-text" id="fruitprice"></p>
+                <div class="d-flex gap-2">
+                    <button class="btn btn-warning" id="decrement">-</button>
+                        <input class="form-control w-25 text-center text-secondary" id="quantity" value="0"></p>
+                    <button class="btn btn-warning" id="increment">+</button>
+                </div>
+                <div class="d-flex align-items-center mt-3">Total:
+                    <input class="form-control border-0 bg-transparent text-secondary" id="total" disabled/>
+                </div>
+                
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="close"></button>
+                  Close
+                </button>
+             
+                <button  type="button"  class="btn text-white"  style="background-color: #006341"   id="buy" data-bs-dismiss="modal"  >
+                  Add to cart
+                </button>
+            </div>
         </div>
-        <div class="modal-footer">
-          <button
-            type="button"
-            class="btn btn-secondary"
-            data-bs-dismiss="modal"
-            id="close"
-          >
-            Close
-          </button>
-          <button
-            type="button"
-            class="btn text-white"
-            style="background-color: #006341"
-            id="buy"
-            data-bs-dismiss="modal"
-          >
-            Add to cart
-          </button>
-        </div>
-      </div>
     </div>
-  </div>
-  <!---End Modal-->
+</div>
+<!---End Modal-->
