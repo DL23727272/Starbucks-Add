@@ -213,59 +213,59 @@
     </section> -->
     
     
-  <!---Modal-->
-  <div class="modal" tabindex="-1" id="modalProduct">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="fruitname"></h5>
-          <button
-            type="button"
-            class="btn-close"
-            data-bs-dismiss="modal"
-            aria-label="Close"
-          ></button>
-        </div>
-        <div class="modal-body">
-          <img src="" id="fruitimage" alt="" />
-          <hr class="border-success border-2"/>
-          <h4 class="card-title" id="fruitname"></h4>
-          <p class="card-text" id="fruitdetail"></p>
-          <p class="card-text" id="fruitprice"></p>
-          <div class="d-flex gap-2">
-            <button class="btn btn-warning" id="decrement">-</button>
-            <input class="form-control w-25 text-center text-secondary" id="quantity" value="0"></p>
-            <button class="btn btn-warning" id="increment">+</button>
+    <!---Modal-->
+    <div class="modal" tabindex="-1" id="modalProduct">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="fruitname"></h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
           </div>
-        
-            <div class="d-flex align-items-center mt-3">Total:
-              <input class="form-control border-0 bg-transparent text-secondary" id="total" disabled/>
+          <div class="modal-body">
+            <img src="" id="fruitimage" alt="" />
+            <hr class="border-success border-2"/>
+            <h4 class="card-title" id="fruitname"></h4>
+            <p class="card-text" id="fruitdetail"></p>
+            <p class="card-text" id="fruitprice"></p>
+            <div class="d-flex gap-2">
+              <button class="btn btn-warning" id="decrement">-</button>
+              <input class="form-control w-25 text-center text-secondary" id="quantity" value="0"></p>
+              <button class="btn btn-warning" id="increment">+</button>
             </div>
-         
-        </div>
-        <div class="modal-footer">
-          <button
-            type="button"
-            class="btn btn-secondary"
-            data-bs-dismiss="modal"
-            id="close"
-          >
-            Close
-          </button>
-          <button
-            type="button"
-            class="btn text-white"
-            style="background-color: #006341"
-            id="buy"
-            data-bs-dismiss="modal"
-          >
-            Add to cart
-          </button>
+          
+              <div class="d-flex align-items-center mt-3">Total:
+                <input class="form-control border-0 bg-transparent text-secondary" id="total" disabled/>
+              </div>
+          
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+              id="close"
+            >
+              Close
+            </button>
+            <button
+              type="button"
+              class="btn text-white"
+              style="background-color: #006341"
+              id="buy"
+              data-bs-dismiss="modal"
+            >
+              Add to cart
+            </button>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-  <!---End Modal-->
+    <!---End Modal-->
 
     <!---Footer-->
     <footer class="mt-5 text-white p-3" style="background-color: #006341;">
@@ -304,7 +304,7 @@
 
       alertify.set('notifier', 'position', 'top-right');
       alertify.set('notifier', 'delay', 5);
-      
+      loadProducts();      
       // para sa modal add product
       $(document).ready(function () {
           $('#modalContainer').load('modal.html');
@@ -381,72 +381,72 @@
             $("#modalProduct #fruitimage").attr("src", "/3rdyr/starbuckz/products/" + productImage); //kelangan pala yunf directory lols my ghad sayang 30 mins
 
             $("#increment").click(function () {
-            let quantity = parseInt($("#quantity").val());
-            let parsePrice = parseInt($('#quantity').val(quantity += 1))
-            $('#total').show()
-            parseInt($('#total').val( productPrice * (quantity += 0)))
-          });
+              let quantity = parseInt($("#quantity").val());
+              let parsePrice = parseInt($('#quantity').val(quantity += 1))
+              $('#total').show()
+              parseInt($('#total').val( productPrice * (quantity += 0)))
+            });
 
-          $("#decrement").click(function () {
-            let quantity = parseInt($("#quantity").val());
-            let parsePrice = parseInt($('#quantity').val(quantity -= 1))
-            $('#total').show()
-            parseInt($('#total').val( productPrice * (quantity -= 0)))
-          });
+            $("#decrement").click(function () {
+              let quantity = parseInt($("#quantity").val());
+              let parsePrice = parseInt($('#quantity').val(quantity -= 1))
+              $('#total').show()
+              parseInt($('#total').val( productPrice * (quantity -= 0)))
+            });
 
-          $('#close').click(function(){
-            parseInt($('#quantity').val(quantity = 0))
-            $('#total').hide()
-          })
+            $('#close').click(function(){
+              parseInt($('#quantity').val(quantity = 0))
+              $('#total').hide()
+            })
 
-          $('#buy').click(function () {
-              alertify.success('Item added to cart!');
+            $('#buy').click(function () {
+                alertify.success('Item added to cart!');
 
-              var productId = $("#modalProduct .addtocart").data("product-id");
-              var productPrice = parseFloat($("#modalProduct #total").val());
-              var quantity = parseInt($("#quantity").val());
-              var total = productPrice ;
-          
-              // Create an object to represent the cart item
-              var cartItem = {
-                  productId: productId,
-                  productName: productName,
-                  productPrice: productPrice,
-                  quantity: quantity,
-                  total: total
-              };
-          
-              // Store the cart item in localStorage
-              var cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
-              cartItems.push(cartItem);
-              localStorage.setItem("cartItems", JSON.stringify(cartItems));
-          
-              // Clear the quantity after adding to cart
-              $("#quantity").val(0);
-          
-              // Display updated cart items
-              displayCartItems();
-          
-              // Reload the page after a delay (e.g., 2000 milliseconds = 2 seconds)
-              setTimeout(function () {
-                   location.reload();
-               }, 2000);
-          });
-          
-          // Function to display cart items
-          function displayCartItems() {
+                var productId = $("#modalProduct .addtocart").data("product-id");
+                var productPrice = parseFloat($("#modalProduct #total").val());
+                var quantity = parseInt($("#quantity").val());
+                var total = productPrice ;
+            
+                // Create an object to represent the cart item
+                var cartItem = {
+                    productId: productId,
+                    productName: productName,
+                    productPrice: productPrice,
+                    quantity: quantity,
+                    total: total
+                };
+            
+                // Store the cart item in localStorage
                 var cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
-                var cartOutput = "Product Name\tQuantity\tTotal\n";
-          }
+                cartItems.push(cartItem);
+                localStorage.setItem("cartItems", JSON.stringify(cartItems));
+            
+                // Clear the quantity after adding to cart
+                $("#quantity").val(0);
+            
+                // Display updated cart items
+                displayCartItems();
+            
+                // Reload the page after a delay (e.g., 2000 milliseconds = 2 seconds)
+                setTimeout(function () {
+                    location.reload();
+                }, 2000);
+            });
+          
+            // Function to display cart items
+            function displayCartItems() {
+                  var cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
+                  var cartOutput = "Product Name\tQuantity\tTotal\n";
+            }
             
             // Display cart items when the page loads
             displayCartItems();
             
       
+        });
       });
-    });
 
-    loadProducts();      
+   
 
     function loadProducts() { 
         $.ajax({
