@@ -19,68 +19,72 @@
     <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-      <!--
-        You may not copy, reproduce, distribute, publish, display, perform, modify, create derivative works, transmit, 
-        or in any way exploit any such content, nor may you distribute any part of this content over any network, including a local area network, 
-        sell or offer it for sale, or use such content to construct any kind of database. You may not alter or remove any copyright or 
-        other notice from copies of the content on AI Tech’s website. 
-      -->
+    <style>
+      .navbar {
+        background-color: #006341; 
+        transition: background-color 0.3s ease; 
+      }
+      .navbar.blurred {
+        background-color: transparent; /* aalisin niya yung background color */
+        backdrop-filter: blur(20px); /* then eto papalit, blur effect */
+      }
+      
+      .nav-link {
+        color: white;
+        font-weight: 500;
+        transition: color 0.3s ease 
+      }
+      
+      .nav-link.scrolled {
+        color: #000000;
+        font-weight: 500;
+      }
+      .nav-link.scrolled:hover {
+        color: #006341; 
+        font-weight: 500;
+      }
+    </style>
   </head>
   <body class="">
-    <nav
-      class="navbar navbar-expand-lg shadow-lg"
-      style="background-color: #006341"
-    >
-      <div
-        class="container-sm d-flex justify-content-between"
-        style="width: 100%"
-      >
-        <div
-          class="d-flex justify-content-between align-items-center"
-          style="width: 100vw"
-        >
+
+    <!--Navbar-->
+    <nav class="navbar navbar-expand-lg shadow-lg sticky-top" id="navbar">
+      <div class="container-sm d-flex justify-content-between" style="width: 100%">
+
+        <div class="d-flex justify-content-between align-items-center" style="width: 100vw">
           <div>
             <img src="./img/logo.png" alt="" style="width: 100px" />
           </div>
           <div>
-            <a href="#displayProducts"
-              ><button
-                class="navbar-toggler"
-                type="button"
-                data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent"
-              >
-                <i class="fa-solid fa-mug-hot" style="color: white"></i></button
-            ></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent">
+              <i class="fa-solid fa-mug-hot" style="color: white"></i>
+            </button>
           </div>
         </div>
-
-        <div
-          class="collapse navbar-collapse container-fluid"
-          id="navbarSupportedContent"
-          style="width: 30vw"
-        >
+    
+        <div class="collapse navbar-collapse container-fluid" id="navbarSupportedContent" style="width: 30vw">
           <ul class="navbar-nav mb-2 mb-lg-0">
             <li class="nav-item">
-              <a
-                class="nav-link  text-white fw-lighter"
-                aria-current="page"
-                href="index.html"
-              >
-                Home</a
-              >
+              <a class="nav-link " aria-current="page" href="index.html">
+                Home
+              </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link text-white fw-lighter" href="index.html#displayProducts">Product</a>
+              <a class="nav-link  " href="index.html#content">
+                Product
+              </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link active text-white fw-lighter" href="cart.html"> Cart</a>
+              <a class="nav-link " href="cart.html">
+                Cart
+              </a>
             </li>
           </ul>
         </div>
+
       </div>
     </nav>
+    <!--End ti Navbar -->
 
     <!--Cart-->
     <section class="container-sm mt-5">
@@ -135,13 +139,6 @@
     </section>
 
 
-      <!--
-        You may not copy, reproduce, distribute, publish, display, perform, modify, create derivative works, transmit, 
-        or in any way exploit any such content, nor may you distribute any part of this content over any network, including a local area network, 
-        sell or offer it for sale, or use such content to construct any kind of database. You may not alter or remove any copyright or 
-        other notice from copies of the content on AI Tech’s website. 
-      -->
-
     <footer class="mt-auto text-white p-3" style="background-color: #006341">
       <div
         class="container-sm d-flex justify-content-between align-items-center"
@@ -169,6 +166,20 @@
     
 
     <script type="text/javascript">
+        //For navbar
+        window.onscroll = function () { scrollFunction() };
+
+        function scrollFunction() {
+          if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
+            document.getElementById("navbar").classList.add("blurred");
+            const navLinks = document.querySelectorAll(".nav-link");
+            navLinks.forEach(link => link.classList.add("scrolled"));
+          } else {
+            document.getElementById("navbar").classList.remove("blurred");
+            const navLinks = document.querySelectorAll(".nav-link");
+            navLinks.forEach(link => link.classList.remove("scrolled"));
+          }
+        }
 
        alertify.set('notifier', 'position', 'top-right');
        alertify.set('notifier', 'delay', 5);
