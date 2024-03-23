@@ -15,8 +15,6 @@ $query = "CREATE TABLE product_table (
 )";
 
 
-
-
 if(mysqli_query($connect, $query)){
     echo "messages table created successfully";
 }
