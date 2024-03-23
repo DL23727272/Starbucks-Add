@@ -252,198 +252,206 @@
     </footer>
 
      <!---End Footer-->
-     <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
-    <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script type="text/javascript">
-      //For navbar
-      window.onscroll = function () { scrollFunction() };
+      <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+      <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+      <script type="text/javascript">
+        //For navbar
+        window.onscroll = function () { scrollFunction() };
 
-      function scrollFunction() {
-        if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
-          document.getElementById("navbar").classList.add("blurred");
-          const navLinks = document.querySelectorAll(".nav-link");
-          navLinks.forEach(link => link.classList.add("scrolled"));
-          document.getElementById("mugIcon").classList.add("scrolled"); // Add scrolled class to the icon
-        } else {
-          document.getElementById("navbar").classList.remove("blurred");
-          const navLinks = document.querySelectorAll(".nav-link");
-          navLinks.forEach(link => link.classList.remove("scrolled"));
-          document.getElementById("mugIcon").classList.remove("scrolled"); // Remove scrolled class from the icon
+        function scrollFunction() {
+          if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
+            document.getElementById("navbar").classList.add("blurred");
+            const navLinks = document.querySelectorAll(".nav-link");
+            navLinks.forEach(link => link.classList.add("scrolled"));
+            document.getElementById("mugIcon").classList.add("scrolled"); // Add scrolled class to the icon
+          } else {
+            document.getElementById("navbar").classList.remove("blurred");
+            const navLinks = document.querySelectorAll(".nav-link");
+            navLinks.forEach(link => link.classList.remove("scrolled"));
+            document.getElementById("mugIcon").classList.remove("scrolled"); // Remove scrolled class from the icon
+          }
         }
-      }
-      //end of function for navbarrr
+        //end of function for navbarrr
       
-    
-      function imgSlider(anything){
-        document.querySelector('.starbucks').src = anything;
-      }
+        // For carousel na nag chachange image
+        function imgSlider(anything){
+          document.querySelector('.starbucks').src = anything;
+        }
 
-      alertify.set('notifier', 'position', 'top-right');
-      alertify.set('notifier', 'delay', 5);
-      loadProducts();      
-      // para sa modal add product
-      $(document).ready(function () {
+        alertify.set('notifier', 'position', 'top-right');
+        alertify.set('notifier', 'delay', 5);
+
+        loadProducts();     
+
+        // para sa modal add product
+        $(document).ready(function () {
+            $('#modalContainer').load('modal.html');
+        
+            // Add event listener for the submit button
+            $(document).on('click', '#addProductButton', function () {
+                console.log("Submit button clicked"); // Debug statement
+        
+                // alertify.success("CLICKED");
+        
+                var formData = new FormData();
+                formData.append('productName', $('#productName').val());
+                formData.append('productPrice', $('#productPrice').val());
+                formData.append('productDescription', $('#productDescription').val());
+                formData.append('image', $('#productImageName')[0].files[0]);
+        
+                console.log("Form data:", formData); // Debug pppppppta ayaw mag function yung button
+        
+                $.ajax({
+                    type: 'POST',
+                    url: 'addProduct.php',
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    beforeSend: function () {
+                      
+                        $('#addProductButton').prop('disabled', true).html('<i class="fa fa-spinner fa-spin"></i> Submitting...');
+                    },
+                    success: function (response) {
+                        console.log("AJAX request successful"); 
+                        console.log("Response:", response); // check response  from server uo xd
+        
+                        if (response.trim() === 'Product inserted successfully') {
+                            alertify.success('Product added successfully');
+                            $('#addProduct').modal('hide');
+                            setTimeout(function () {
+                                location.reload();
+                            }, 2000);
+                        } else {
+                            alertify.error('Failed to add product: ' + response);
+                            $('#addProductButton').prop('disabled', false).html('Submit');
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.error("AJAX request error:", xhr.responseText); // Debug statement
+                        alertify.error('Error: ' + xhr.responseText);
+                        $('#addProductButton').prop('disabled', false).html('Submit');
+                    }
+                });
+            });
+
           $('#modalContainer').load('modal.html');
-      
-          // Add event listener for the submit button
-          $(document).on('click', '#addProductButton', function () {
-              console.log("Submit button clicked"); // Debug statement
-      
-             // alertify.success("CLICKED");
-      
-              var formData = new FormData();
-              formData.append('productName', $('#productName').val());
-              formData.append('productPrice', $('#productPrice').val());
-              formData.append('productDescription', $('#productDescription').val());
-              formData.append('image', $('#productImageName')[0].files[0]);
-      
-              console.log("Form data:", formData); // Debug pppppppta ayaw mag function yung button
-      
-              $.ajax({
-                  type: 'POST',
-                  url: 'addProduct.php',
-                  data: formData,
-                  contentType: false,
-                  processData: false,
-                  beforeSend: function () {
-                     
-                      $('#addProductButton').prop('disabled', true).html('<i class="fa fa-spinner fa-spin"></i> Submitting...');
-                  },
-                  success: function (response) {
-                      console.log("AJAX request successful"); 
-                      console.log("Response:", response); // check response  from server uo xd
-      
-                      if (response.trim() === 'Product inserted successfully') {
-                          alertify.success('Product added successfully');
-                          $('#addProduct').modal('hide');
-                          setTimeout(function () {
-                              location.reload();
-                          }, 2000);
-                      } else {
-                          alertify.error('Failed to add product: ' + response);
-                          $('#addProductButton').prop('disabled', false).html('Submit');
-                      }
-                  },
-                  error: function (xhr, status, error) {
-                      console.error("AJAX request error:", xhr.responseText); // Debug statement
-                      alertify.error('Error: ' + xhr.responseText);
-                      $('#addProductButton').prop('disabled', false).html('Submit');
+
+          $('#total').hide()
+          $(".addtocart").click(function () {
+            
+              var productId = $(this).data("product-id");
+              var productName = $(this).data("product-name");
+              var productImage = $(this).data("product-image");
+              var productDetail = $(this).data("product-detail");
+              var productPrice = $(this).data("product-price");
+
+              //ayaw magpakita yung picture sa modal 
+              console.log("Product Image URL:", productImage);
+              console.log("Product ID:", productId);
+              console.log("Product Name:", productName);
+              console.log("Product Image:", productImage);
+              console.log("Product Detail:", productDetail);
+              console.log("Product Price:", productPrice);
+              
+              $("#modalProduct #fruitname").text(productName);
+              $("#modalProduct #fruitprice").text("Php " + productPrice);
+              $("#modalProduct #fruitdetail").text(productDetail);
+              $("#modalProduct #fruitimage").attr("src", "/3rdyr/starbuckz/products/" + productImage); //kelangan pala yunf directory lols my ghad sayang 30 mins
+
+              //FUnction for Increment Button on MOdal product
+              $("#increment").click(function () {
+                  let quantity = parseInt($("#quantity").val());
+                  quantity += 1; 
+                  $("#quantity").val(quantity); 
+                  $('#total').show();
+                  $('#total').val(productPrice * quantity); 
+              });
+            
+              //FUnction for Decrement Button on MOdal product
+              $("#decrement").click(function () {
+                  let quantity = parseInt($("#quantity").val());
+                  if (quantity > 0) {
+                      quantity -= 1; 
+                      $("#quantity").val(quantity); 
+                      $('#total').show();
+                      $('#total').val(productPrice * quantity); 
                   }
               });
-          });
-      }); 
-    
-    
-
-      $(document).ready(function () {
-
-        $('#modalContainer').load('modal.html');
-
-        $('#total').hide()
-        $(".addtocart").click(function () {
-          
-            var productId = $(this).data("product-id");
-            var productName = $(this).data("product-name");
-            var productImage = $(this).data("product-image");
-            var productDetail = $(this).data("product-detail");
-            var productPrice = $(this).data("product-price");
-
-            //ayaw magpakita yung picture sa modal 
-            console.log("Product Image URL:", productImage);
-
-            $("#modalProduct #fruitname").text(productName);
-            $("#modalProduct #fruitprice").text("Php " + productPrice);
-            $("#modalProduct #fruitdetail").text(productDetail);
-            $("#modalProduct #fruitimage").attr("src", "/3rdyr/starbuckz/products/" + productImage); //kelangan pala yunf directory lols my ghad sayang 30 mins
-
-            $("#increment").click(function () {
-              let quantity = parseInt($("#quantity").val());
-              let parsePrice = parseInt($('#quantity').val(quantity += 1))
-              $('#total').show()
-              parseInt($('#total').val( productPrice * (quantity += 0)))
-            });
-
-            $("#decrement").click(function () {
-              let quantity = parseInt($("#quantity").val());
-              let parsePrice = parseInt($('#quantity').val(quantity -= 1))
-              $('#total').show()
-              parseInt($('#total').val( productPrice * (quantity -= 0)))
-            });
-
-            $('#close').click(function(){
-              parseInt($('#quantity').val(quantity = 0))
-              $('#total').hide()
-              //mahirap na bug requires modern solution reload para di mag double yung Qt sa modal
-              setTimeout(function () {
-                  location.reload();
-              }, 10);
-            });
-
-            $('#buy').click(function () {
-                alertify.success('Item added to cart!');
-
-                var productId = $("#modalProduct .addtocart").data("product-id");
-                var productPrice = parseFloat($("#modalProduct #total").val());
-                var quantity = parseInt($("#quantity").val());
-                var total = productPrice ;
             
-                // Create an object to represent the cart item
-                var cartItem = {
-                    productId: productId,
-                    productName: productName,
-                    productPrice: productPrice,
-                    quantity: quantity,
-                    total: total
-                };
-            
-                // Store the cart item in localStorage
-                var cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
-                cartItems.push(cartItem);
-                localStorage.setItem("cartItems", JSON.stringify(cartItems));
-            
-                // Clear the quantity after adding to cart
-                $("#quantity").val(0);
-            
-                // Display updated cart items
-                displayCartItems();
-            
-                // Reload the page after a delay (e.g., 2000 milliseconds = 2 seconds)
+              $('#close').click(function(){
+                $('#quantity').val(0);
+                $('#total').hide()
+
+                //mahirap na bug requires modern solution reload para di mag double yung Qt sa modal
                 setTimeout(function () {
                     location.reload();
-                }, 2000);
-            });
-          
-            // Function to display cart items
-            function displayCartItems() {
+                }, 10);
+              });
+
+              $('#buy').click(function () {
+                  alertify.success('Item added to cart!');
+
+                  var productId = $("#modalProduct .addtocart").data("product-id");
+                  var productPrice = parseFloat($("#modalProduct #total").val());
+                  var quantity = parseInt($("#quantity").val());
+                  var total = productPrice ;
+              
+                  // Create an object to represent the cart item
+                  var cartItem = {
+                      productId: productId,
+                      productName: productName,
+                      productPrice: productPrice,
+                      quantity: quantity,
+                      total: total
+                  };
+              
+                  // Store the cart item in localStorage
                   var cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
-                  var cartOutput = "Product Name\tQuantity\tTotal\n";
-            }
+                  cartItems.push(cartItem);
+                  localStorage.setItem("cartItems", JSON.stringify(cartItems));
+              
+                  // Clear the quantity after adding to cart
+                  $("#quantity").val(0);
+              
+                  // Display updated cart items
+                  displayCartItems();
+              
+                  // Reload the page after a delay (e.g., 2000 milliseconds = 2 seconds)
+                  setTimeout(function () {
+                      location.reload();
+                  }, 2000);
+              });
             
-            // Display cart items when the page loads
-            displayCartItems();
-            
-      
+              // Function to display cart items
+              function displayCartItems() {
+                    var cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
+                    var cartOutput = "Product Name\tQuantity\tTotal\n";
+              }
+              
+              // Display cart items when the page loads
+              displayCartItems();
+              
+        
+          });
         });
-      });
 
-   
 
-    function loadProducts() { 
-        $.ajax({
-            url: 'fetchProduct.php',
-            success: function (data) { 
-                if (data.trim() === '') {
-                    $('#content').append('<div><p>NO PRODUCTS AVAILABLE</p></div>');
-                } else {
-                    $('#content').append(data);
+        function loadProducts() { 
+            $.ajax({
+                url: 'fetchProduct.php',
+                success: function (data) { 
+                    if (data.trim() === '') {
+                        $('#content').append('<div><p>NO PRODUCTS AVAILABLE</p></div>');
+                    } else {
+                        $('#content').append(data);
+                    }
+                },
+                error: function () {
+                    $('#content').append('<div><p>Error loading products. Please try again later.</p></div>');
                 }
-            },
-            error: function () {
-                $('#content').append('<div><p>Error loading products. Please try again later.</p></div>');
-            }
-        });
-    }
+            });
+        }
   
   
     </script>
