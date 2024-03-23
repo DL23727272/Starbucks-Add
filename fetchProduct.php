@@ -11,8 +11,8 @@ $sql = "SELECT * FROM product_table";
     while ($row = mysqli_fetch_assoc($result)) {
         $output = '
         <div class="card p-3 col-12 col-md-6 col-lg-4">
-            <div>
-                <img src="products/'. $row['productImage'] .'" alt="Frontrow" style="width: 200px; height: 200px; object-fit: cover; filter: drop-shadow(5px 5px 15px #006341)"/>
+            <div class="d-flex justify-content-center">
+                <img src="products/'. $row['productImage'] .'" alt="Frontrow" style="max-width: 100%; height: 200px; object-fit: cover; filter: drop-shadow(5px 5px 15px #006341)"/>
             </div>
             <hr class="border-success border-2"/>
             <div>
