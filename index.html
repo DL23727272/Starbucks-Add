@@ -289,14 +289,14 @@
         alertify.set('notifier', 'position', 'top-right');
         alertify.set('notifier', 'delay', 5);
 
-        loadProducts();     
+      
 
         // para sa modal add product
         $(document).ready(function () {
             $('#modalContainer').load('modal.html');
         
             // Add event listener for the submit button
-            $(document).on('click', '#addProductButton', function () {
+        /*    $(document).on('click', '#addProductButton', function () {
                 console.log("Submit button clicked"); // Debug statement
         
                 // alertify.success("CLICKED");
@@ -340,7 +340,7 @@
                         $('#addProductButton').prop('disabled', false).html('Submit');
                     }
                 });
-            });
+            });*/
 
           $('#modalContainer').load('modal.html');
 
@@ -443,7 +443,8 @@
           });
         });
 
-
+        loadProducts(); 
+            
         function loadProducts() { 
             $.ajax({
                 url: 'fetchProduct.php',
