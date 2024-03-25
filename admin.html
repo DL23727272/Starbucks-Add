@@ -95,6 +95,14 @@
     </nav>
     <!--End ti Navbar -->
 
+
+    <!-- MODAL ADD ITEMS -->
+
+    <div id="modalContainer"></div>
+
+    <!-- END MODAL ADD ITEMSSSSSSSS -->
+
+
     <!-- Dashboard for now -->
     <div class="container-fluid ps-5">
 
@@ -112,6 +120,12 @@
         </div>
       </div>
 
+      <div class="mt-5">
+         <a class="nav-link" data-bs-toggle="modal" data-bs-target="#addProduct"> 
+          <button class="btn btn-outline-success" >Add Product</button>
+        </a>
+      </div>
+     
     </div>
     <!-- End of Dashboard for now -->
 
@@ -175,8 +189,59 @@
         }
       }
       //end of function for navbarrr
-      $(document).ready(function() {
-          loadOrders();
+
+      $(document).ready(function () {
+        
+            loadOrders();
+            
+            $('#modalContainer').load('modal.html');
+        
+            $(document).on('click', '#addProductButton', function () {
+                console.log("Submit button clicked"); // Debug statement
+        
+                // alertify.success("CLICKED");
+        
+                var formData = new FormData();
+                formData.append('productName', $('#productName').val());
+                formData.append('productPrice', $('#productPrice').val());
+                formData.append('productDescription', $('#productDescription').val());
+                formData.append('image', $('#productImageName')[0].files[0]);
+        
+                console.log("Form data:", formData); // Debug pppppppta ayaw mag function yung button
+        
+                $.ajax({
+                    type: 'POST',
+                    url: 'addProduct.php',
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    beforeSend: function () {
+                      
+                        $('#addProductButton').prop('disabled', true).html('<i class="fa fa-spinner fa-spin"></i> Submitting...');
+                    },
+                    success: function (response) {
+                        console.log("AJAX request successful"); 
+                        console.log("Response:", response); // check response  from server uo xd
+        
+                        if (response.trim() === 'Product inserted successfully') {
+                            alertify.success('Product added successfully');
+                            $('#addProduct').modal('hide');
+                            setTimeout(function () {
+                                location.reload();
+                            }, 2000);
+                        } else {
+                            alertify.error('Failed to add product: ' + response);
+                            $('#addProductButton').prop('disabled', false).html('Submit');
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.error("AJAX request error:", xhr.responseText); // Debug statement
+                        alertify.error('Error: ' + xhr.responseText);
+                        $('#addProductButton').prop('disabled', false).html('Submit');
+                    }
+                });
+            });
+
       });
 
   
