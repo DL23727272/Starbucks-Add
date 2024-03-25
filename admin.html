@@ -79,7 +79,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link  " href="#content">
+              <a class="nav-link  " href="index.html#content">
                 Product
               </a>
             </li>
@@ -172,6 +172,10 @@
     <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script type="text/javascript">
+
+      alertify.set('notifier', 'position', 'top-right');
+      alertify.set('notifier', 'delay', 5);
+      
       //For navbar
       window.onscroll = function () { scrollFunction() };
 
@@ -191,7 +195,7 @@
       //end of function for navbarrr
 
       $(document).ready(function () {
-        
+
             loadOrders();
             
             $('#modalContainer').load('modal.html');
