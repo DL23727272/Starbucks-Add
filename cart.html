@@ -94,7 +94,7 @@
 
     <!--Cart-->
     <section class="container-sm mt-5">
-      <h2>Your Cart</h2>
+      <h2>Your Cart: <b id="totalItems"></b> items</h2>
       <span id="cartStatus" class="lead badge text-bg-warning">
         Please select a product</span
       >
@@ -207,6 +207,7 @@
 
                 cartTableBody.innerHTML = "";
                 var totalAmount = 0;
+                var totalItems = 0;
 
                 // Iterate sa each cart item and append to the table
                 cartItems.forEach(function (item, index) {
@@ -229,11 +230,15 @@
 
                         // Update the totalAmount variable with the current item's total
                         totalAmount += total;
+
+                        totalItems += item.quantity;
                     }
                 });
 
-                // Update the total amount displayed on the page
+                // Update the total amount and total items displayed on the page
                 document.getElementById("totalAmount").innerText = "Php " + totalAmount.toFixed(2);
+                
+                document.getElementById("totalItems").innerText = totalItems;
             };
 
             // Call the displayCartItems function when the page loads
