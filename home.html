@@ -301,6 +301,24 @@
           }
       }
 
+      function Signup() {
+        var username = document.getElementById("customerSignUpName").value;
+        var password = document.getElementById("customerSignUpPassword").value;
+        var email = document.getElementById("customerSignUpEmail").value;
+
+        if (username == "" && password == "" && email == "") {
+          alertify.error('Empty fields! Please fill all the fields.');
+        }else if (username == "") {   
+            alertify.error('Fill up the Username field!');
+        } else if (password == "") {
+              alertify.error('Fill up the Password field!');
+        } else if (email == "") {
+          alertify.error('Fill up the Email field!');
+        } else {
+            alertify.success('Okurrr');
+        }
+    }
+
   
 
        //FOR NOW LOAD PRODUCTS USING ADMINLOADPRODUCTS.PHP 
