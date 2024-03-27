@@ -288,36 +288,94 @@
           var username = document.getElementById("customerName").value;
           var password = document.getElementById("customerPassword").value;
 
-          if (username == "DL" && password == "123") {
-              alertify.success("May Tama Kaaa")
-          } else if (username == "" && password == "") {
+          if (username == "" && password == "") {
             alertify.error('Empty fields! Please fill all the fields.');
           }else if (username == "") {   
               alertify.error('Fill up the Username field!');
           } else if (password == "") {
                 alertify.error('Fill up the Password field!');
-          }  else {
-              alertify.error('Wrong Username or Password.');
-          }
+          } else {
+            // Send form data to loginProcess.php using AJAX
+            $.ajax({
+                type: "POST",
+                url: "loginProcess.php",
+                data: {
+                    customerLoginName: username,
+                    customerLoginPassword: password
+                },
+                dataType: "json",
+                success: function (response) {
+                    // Handle success response
+                    if (response.status === 'success') {
+                        // Login successful
+                        alertify.success(response.message);
+                        window.location.href = 'index.html';
+                     
+                        // Redirect or perform actions after successful login
+                    } else {
+                        // Login failed
+                        alertify.error(response.message);
+                        // Display error message to the user
+                    }
+                },
+                error: function (xhr, status, error) {
+                    // Handle error response
+                    console.error(xhr.responseText);
+                    alertify.error('Failed to log in!');
+                    // Display error message to the user
+                }
+            });
+        }
       }
 
       function Signup() {
-        var username = document.getElementById("customerSignUpName").value;
-        var password = document.getElementById("customerSignUpPassword").value;
-        var email = document.getElementById("customerSignUpEmail").value;
-
-        if (username == "" && password == "" && email == "") {
-          alertify.error('Empty fields! Please fill all the fields.');
-        }else if (username == "") {   
-            alertify.error('Fill up the Username field!');
-        } else if (password == "") {
-              alertify.error('Fill up the Password field!');
-        } else if (email == "") {
-          alertify.error('Fill up the Email field!');
-        } else {
-            alertify.success('Okurrr');
-        }
-    }
+          // Get form data
+          var customerSignUpEmail = document.getElementById("customerSignUpEmail").value;
+          var customerSignUpName = document.getElementById("customerSignUpName").value;
+          var customerSignUpPassword = document.getElementById("customerSignUpPassword").value;
+      
+          // Perform form validation
+          if (customerSignUpName == "" && customerSignUpPassword == "" && customerSignUpEmail == "") {
+            alertify.error('Empty fields! Please fill all the fields.');
+          }else if (customerSignUpName == "") {   
+              alertify.error('Fill up the Username field!');
+          } else if (customerSignUpPassword == "") {
+                alertify.error('Fill up the Password field!');
+          } else if (customerSignUpEmail == "") {
+            alertify.error('Fill up the Email field!');
+          } else {
+            // Send form data to signUpProcess.php using AJAX
+            $.ajax({
+                type: "POST",
+                url: "signupProcess.php",
+                data: {
+                    customerSignUpEmail: customerSignUpEmail,
+                    customerSignUpName: customerSignUpName,
+                    customerSignUpPassword: customerSignUpPassword
+                },
+                dataType: "json",
+                success: function (response) {
+                    // Handle success response
+                    if (response.status === 'success') {
+                        // Sign up successful
+                        alertify.success(response.message);
+                        // Redirect or display success message as needed
+                    } else {
+                        // Sign up failed
+                        alertify.error(response.message);
+                        // Display error message to the user
+                    }
+                },
+                error: function (xhr, status, error) {
+                    // Handle error response
+                    console.error(xhr.responseText);
+                    alertify.error('Failed to sign up!');
+                    // Display error message to the user
+                }
+            });
+          }
+      }
+    
 
   
 
