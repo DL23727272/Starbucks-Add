@@ -359,6 +359,7 @@
                     if (response.status === 'success') {
                         // Sign up successful
                         alertify.success(response.message);
+                        $('#exampleModal').modal('hide');
                         // Redirect or display success message as needed
                     } else {
                         // Sign up failed
