@@ -20,7 +20,7 @@
     <link rel="icon" type="image/x-icon" href="/img/logo.ico">
 
     <style>
-        .navbar {
+          .navbar {
             background-color: #006341; 
             transition: background-color 0.3s ease; 
           }
@@ -60,6 +60,7 @@
             height: 100%;
             object-fit: cover;
             object-position: center;
+            z-index: -1;
           }
            /* Scrollbar*/
           ::-webkit-scrollbar {
@@ -116,6 +117,8 @@
 
       <img src="img/banner.jpg" alt="image" class="login__bg">
 
+      
+
       <!-- LOGIN FORM -->
       <section class="vh-100">
        
@@ -140,13 +143,21 @@
                             <input type="text" name="customerName" id="customerName" placeholder="Enter Username" class=" form-control" required>
                         </div>
                         <div class="form-group my-4">
-                          <label for="email" style="font-weight: 700;"><i class="fa-solid fa-envelope"></i> Email</label>
-                            <input type="email" name="customerEmail" id="customerEmail" placeholder="Enter Email" class=" form-control" required>
-                        </div>
-                        <div class="form-group my-4">
                           <label for="pass" style="font-weight: 700;"><i class="fa-solid fa-lock"></i> Password</label>
                           <input type="password" name="customerPassword" id="customerPassword" placeholder="Enter Password" class="  form-control" required>
                         </div>
+                         <div class="col-sm">
+                            <p style="font-size: 13px; color: rgb(0, 0, 0);">
+                                Don't have an account? 
+                                <a  data-bs-toggle="modal" data-bs-target="#exampleModal" 
+                                    style="text-overflow: unset; color: rgb(252, 254, 255); text-decoration: none; " 
+                                    onmouseover="this.style.textDecoration='underline'" 
+                                    onmouseout="this.style.textDecoration='none'">
+                                  Sign up
+                                </a>
+                            </p>
+                        </div>
+                       
                         <div class="form-group row justify-content-end"> 
                             <div class="col-auto">
                                 <button type="button" id="addProductButton" class="btn btn-outline-light" onclick="Login()">Submit</button>
@@ -161,7 +172,13 @@
         </div>
        
       </section>
-      
+
+      <!-- MODAL -->
+
+      <div id="modalContainer"></div>
+
+      <!-- END MODAL -->
+
       <hr class="container-sm Sborder border-success mt-5 border-2 opacity-50" />
 
       <!--Hero-->
@@ -182,6 +199,9 @@
             lattes to seasonal favorites, there's something for every palate. Join
             us at Starbucks and let's make every sip count.
           </p>
+          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            Launch demo modal
+          </button>
           <!-- <a class="nav-link" data-bs-toggle="modal" data-bs-target="#addProduct"> 
           <button class="btn btn-outline-success" >Add Product</button>
           </a> -->
@@ -233,12 +253,14 @@
       </footer>
      <!---End Footer-->
 
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
-    <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
+     <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+     <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+     <script type="text/javascript">
       alertify.set('notifier', 'position', 'top-right');
-      
+
+    
+
           //For navbar
       window.onscroll = function () { scrollFunction() };
 
@@ -256,23 +278,24 @@
         }
       }
       //end of function for navbarrr
+      $(document).ready(function () {
 
+        $('#modalContainer').load('modal.html');
+
+      });
       //form validation
       function Login() {
           var username = document.getElementById("customerName").value;
           var password = document.getElementById("customerPassword").value;
-          var email = document.getElementById("customerEmail").value;
 
           if (username == "DL" && password == "123") {
               alertify.success("May Tama Kaaa")
-          } else if (username == "" && password == "" && email == "") {
+          } else if (username == "" && password == "") {
             alertify.error('Empty fields! Please fill all the fields.');
           }else if (username == "") {   
               alertify.error('Fill up the Username field!');
           } else if (password == "") {
                 alertify.error('Fill up the Password field!');
-          } else if (email == "") {
-            alertify.error('Fill up the Email field!');
           }  else {
               alertify.error('Wrong Username or Password.');
           }
