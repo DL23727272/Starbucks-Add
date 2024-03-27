@@ -18,6 +18,22 @@
     <link rel="icon" type="image/x-icon" href="/img/logo.ico">
     
     <style>
+       /* Scrollbar*/
+       ::-webkit-scrollbar {
+        width: 20px;
+      }
+      ::-webkit-scrollbar-track {
+        box-shadow: inset 0 0 5px grey; 
+        border-radius: 10px;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #006341; 
+        border-radius: 10px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #b30000; 
+      }
+      /* END OF Scrollbar */
       .thumb {
         display: flex;
         margin-top: -60px;
@@ -62,7 +78,7 @@
 
         <div class="d-flex justify-content-between align-items-center" style="width: 100vw">
           <div>
-          <a href="#"> <img src="./img/logo.png" alt="" style="width: 100px" /></a>
+            <a href="#"> <img src="./img/logo.png" alt="" style="width: 100px" /></a>
           </div>
           <div>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent">
