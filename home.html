@@ -41,6 +41,27 @@
             color: #006341; 
             font-weight: 500;
           }
+          input{
+            border-radius: 10px;
+            background: #c8c1c1;
+            box-shadow: inset 5px 5px 6px #8a8585,
+                        inset -5px -5px 6px #fffdfd;
+          }
+          .login_card{
+            height: 90%;
+            border-radius: 6px;
+            background-color: rgba(255, 255, 255, 0.385); 
+            backdrop-filter: blur(10px); 
+            box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+          }
+          .login__bg{
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            
+          }
     </style>
 </head>
 <body>
@@ -62,12 +83,12 @@
           <div class="collapse navbar-collapse container-fluid" id="navbarSupportedContent" style="width: 30vw">
             <ul class="navbar-nav mb-2 mb-lg-0">
               <li class="nav-item">
-                <a class="nav-link " aria-current="page" href="index.html">
+                <a class="nav-link " aria-current="page" href="#">
                   Home
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link  " href="index#content">
+                <a class="nav-link  " href="home.html#products">
                   Products
                 </a>
               </li>
@@ -77,9 +98,96 @@
         </div>
       </nav>
       <!--End ti Navbar -->
-  
+
+      <img src="img/banner.jpg" alt="image" class="login__bg">
+
       <!-- LOGIN FORM -->
-   
+      <section class="vh-100">
+       
+        <div class="container-sm mt-5 ">
+          <div class="row">
+  
+            <div class="col">
+            </div>
+  
+            <div class="col">
+            </div>
+  
+            <div class="col ">
+                <div class="login_card card mt-5">
+                  <form enctype="multipart/form-data" method="POST" class="mt-1">
+                    <div class="m-5">
+                        <div class="form-group my-4">
+                          <img src="img/hero.png" alt="" style="width: 300px; ">
+                        </div>
+                        <div class="form-group my-4">
+                            <input type="text" name="customerName" id="customerName" placeholder="Enter Name" class=" form-control" required>
+                        </div>
+                        <div class="form-group my-4">
+                            <input type="email" name="customerEmail" id="customerEmail" placeholder="Enter Email" class=" form-control" required>
+                        </div>
+                        <div class="form-group my-4">
+                          <input type="password" name="customerPassword" id="customerPassword" placeholder="Enter Password" class="  form-control" required>
+                        </div>
+                        <div class="form-group row justify-content-end"> 
+                            <div class="col-auto">
+                                <button type="button" id="addProductButton" class="btn btn-outline-light">Submit</button>
+                            </div>
+                        </div>
+                    </div>
+                  </form>
+                </div>
+            </div>
+
+          </div>
+        </div>
+       
+      </section>
+      
+      <hr class="container-sm Sborder border-success mt-5 border-2 opacity-50" />
+
+      <!--Hero-->
+      <section class="container-sm">
+        <div class="d-flex flex-column align-items-center text-center">
+          <img
+            src="./img/hero.png"
+            style="width: 200px; height: 45px"
+            alt=""
+            class="mt-5 mb-3 img-fluid"
+            srcset=""
+          />
+          <p class="w-75 lead text-secondary fst-italic">
+            Starbucks is more than just a coffee shop; it's a community hub where
+            people connect over delicious drinks and meaningful moments. With our
+            expertly crafted coffees, teas, and snacks, every visit is an
+            opportunity to treat yourself to quality and comfort. From our iconic
+            lattes to seasonal favorites, there's something for every palate. Join
+            us at Starbucks and let's make every sip count.
+          </p>
+          <!-- <a class="nav-link" data-bs-toggle="modal" data-bs-target="#addProduct"> 
+          <button class="btn btn-outline-success" >Add Product</button>
+          </a> -->
+        </div>
+      </section>
+      <!-- End Hero-->
+
+      <hr class="container-sm Sborder border-success mt-5 border-2 opacity-50" />
+      <!-- PRODUCT CONTENT -->
+      <section class="mt-5">
+        <div class="container-sm">
+
+          <div class="row justify-content-center">
+            <div class="col-12 text-center">
+              <h1 class="fst-italic">Our Products</h1>
+            </div>
+          </div>
+
+          <div class=" w-100" id="products"></div>
+          <!-- THE PRODUCTS WILL SHOW HERE -->
+          </div>
+        </div>
+      </section>
+      <!-- END PRODUCT CONTENT -->
 
       <!---Footer-->
       <footer class="mt-5 text-white p-3" style="background-color: #006341;">
@@ -125,6 +233,28 @@
         }
       }
       //end of function for navbarrr
+
+  
+
+       //FOR NOW LOAD PRODUCTS USING ADMINLOADPRODUCTS.PHP 
+       
+       adminLoadProducts();
+
+       function adminLoadProducts() { 
+          $.ajax({
+              url: 'adminFetchProduct.php',
+              success: function (data) { 
+                  if (data.trim() === '') {
+                      $('#products').append('<div><p>NO PRODUCTS AVAILABLE</p></div>');
+                  } else {
+                      $('#products').append(data);
+                  }
+              },
+              error: function () {
+                  $('#products').append('<div><p>Error loading products. Please try again later.</p></div>');
+              }
+          });
+      }
     </script>
 </body>
 </html>
