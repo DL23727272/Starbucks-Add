@@ -259,9 +259,11 @@
      <script type="text/javascript">
       alertify.set('notifier', 'position', 'top-right');
 
+      $(document).ready(function () {
+        $('#modalContainer').load('modal.html');
+      });
     
-
-          //For navbar
+      //For navbar
       window.onscroll = function () { scrollFunction() };
 
       function scrollFunction() {
@@ -278,11 +280,7 @@
         }
       }
       //end of function for navbarrr
-      $(document).ready(function () {
-
-        $('#modalContainer').load('modal.html');
-
-      });
+     
       //form validation
       function Login() {
           var username = document.getElementById("customerName").value;
@@ -334,7 +332,6 @@
           var customerSignUpName = document.getElementById("customerSignUpName").value;
           var customerSignUpPassword = document.getElementById("customerSignUpPassword").value;
       
-          // Perform form validation
           if (customerSignUpName == "" && customerSignUpPassword == "" && customerSignUpEmail == "") {
             alertify.error('Empty fields! Please fill all the fields.');
           }else if (customerSignUpName == "") {   
@@ -344,7 +341,7 @@
           } else if (customerSignUpEmail == "") {
             alertify.error('Fill up the Email field!');
           } else {
-            // Send form data to signUpProcess.php using AJAX
+            // Send form data to signupProcess.php using AJAX
             $.ajax({
                 type: "POST",
                 url: "signupProcess.php",
@@ -355,16 +352,11 @@
                 },
                 dataType: "json",
                 success: function (response) {
-                    // Handle success response
                     if (response.status === 'success') {
-                        // Sign up successful
                         alertify.success(response.message);
                         $('#exampleModal').modal('hide');
-                        // Redirect or display success message as needed
                     } else {
-                        // Sign up failed
                         alertify.error(response.message);
-                        // Display error message to the user
                     }
                 },
                 error: function (xhr, status, error) {
@@ -376,9 +368,6 @@
             });
           }
       }
-    
-
-  
 
        //FOR NOW LOAD PRODUCTS USING ADMINLOADPRODUCTS.PHP 
        
