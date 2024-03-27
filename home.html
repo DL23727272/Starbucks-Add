@@ -60,8 +60,23 @@
             height: 100%;
             object-fit: cover;
             object-position: center;
-            
           }
+           /* Scrollbar*/
+          ::-webkit-scrollbar {
+            width: 20px;
+          }
+          ::-webkit-scrollbar-track {
+            box-shadow: inset 0 0 5px grey; 
+            border-radius: 10px;
+          }
+          ::-webkit-scrollbar-thumb {
+            background: #006341; 
+            border-radius: 10px;
+          }
+          ::-webkit-scrollbar-thumb:hover {
+            background: #b30000; 
+          }
+          /* END OF Scrollbar */
     </style>
 </head>
 <body>
@@ -114,19 +129,22 @@
             </div>
   
             <div class="col ">
-                <div class="login_card card mt-5">
+                <div class="login_card card mt-4">
                   <form enctype="multipart/form-data" method="POST" class="mt-1">
                     <div class="m-5">
                         <div class="form-group my-4">
                           <img src="img/hero.png" alt="" style="width: 300px; ">
                         </div>
                         <div class="form-group my-4">
+                            <label for="Name" style="font-weight: 700;"><i class="fa-solid fa-signature"></i> Fullname</label>
                             <input type="text" name="customerName" id="customerName" placeholder="Enter Name" class=" form-control" required>
                         </div>
                         <div class="form-group my-4">
+                          <label for="email" style="font-weight: 700;"><i class="fa-solid fa-envelope"></i> Email</label>
                             <input type="email" name="customerEmail" id="customerEmail" placeholder="Enter Email" class=" form-control" required>
                         </div>
                         <div class="form-group my-4">
+                          <label for="pass" style="font-weight: 700;"><i class="fa-solid fa-lock"></i> Password</label>
                           <input type="password" name="customerPassword" id="customerPassword" placeholder="Enter Password" class="  form-control" required>
                         </div>
                         <div class="form-group row justify-content-end"> 
