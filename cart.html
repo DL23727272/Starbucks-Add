@@ -218,11 +218,13 @@
        document.addEventListener("DOMContentLoaded", function() {
             var customerID = sessionStorage.getItem('customerID');
             var customerName = sessionStorage.getItem('customerName');
+            var cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
             // Check if customerID is present
             if (customerID) {
               document.getElementById('customerID').innerText = 'Customer Name: ' + customerName;
-              console.log(customerID)
-              console.log(customerName);
+              console.log('Customer ID ' + customerID)
+              console.log('Customer Name ' + customerName);
+              console.log(cartItems)
                
             } else {
                 console.log('Customer ID not found in sessionStorage'); 
