@@ -306,6 +306,12 @@
                         alertify.success(response.message);
                         var customerID = response.customerID;
                         sessionStorage.setItem('customerID', customerID);
+                        
+                        var customerNameInput =document.getElementById("customerName").value;
+                        var customerName = customerNameInput; 
+                        sessionStorage.setItem('customerName', customerName); //tangina  40mins para dito
+
+
                         setTimeout(function() {
                             window.location.href = 'index.html';
                         }, 2000);

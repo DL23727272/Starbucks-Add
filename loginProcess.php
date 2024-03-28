@@ -25,11 +25,13 @@ if (isset($_POST['customerLoginName']) && isset($_POST['customerLoginPassword'])
             // Verify hashed password
             if ($hashedPassword === $row['customerPassword']) {
                 $customerID = $row['customerID'];
+                $customerName = $row['customerName'];
                 // Passwords match, login successful
                 $response = [
                     'status' => 'success',
                     'message' => 'Welcome!',
-                    'customerID' => $customerID
+                    'customerID' => $customerID,
+                    'customerName' => $customerName
                 ];
             } else {
                 // Passwords don't match, login failed

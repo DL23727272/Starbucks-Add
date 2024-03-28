@@ -217,10 +217,12 @@
 
        document.addEventListener("DOMContentLoaded", function() {
             var customerID = sessionStorage.getItem('customerID');
+            var customerName = sessionStorage.getItem('customerName');
             // Check if customerID is present
             if (customerID) {
-              document.getElementById('customerID').innerText = 'Customer ID: ' + customerID;
+              document.getElementById('customerID').innerText = 'Customer Name: ' + customerName;
               console.log(customerID)
+              console.log(customerName);
                
             } else {
                 console.log('Customer ID not found in sessionStorage'); 
@@ -228,51 +230,50 @@
         });
 
          // Function to place an order
-        // Function to place an order
-function placeOrder() {
-  var customerID = sessionStorage.getItem('customerID');
-  var cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
+        function placeOrder() {
+          var customerID = sessionStorage.getItem('customerID');
+          var cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
 
-  if (customerID && cartItems.length > 0) {
-      // Prepare the order data
-      var orderData = {
-          customerID: customerID,
-          items: JSON.stringify(cartItems) // Convert items array to JSON string
-      };
-      console.log(orderData);
-      // Send the order data to orderProcess.php using AJAX
-      $.ajax({
-          type: "POST",
-          url: "orderProcess.php",
-          data: orderData,
-          dataType: "json",
-          success: function (response) {
-              // Handle the response from the server
-              if (response.status === 'success') {
-                  // Order placed successfully
-                  alertify.success(response.message);
-                  // Clear the cart after placing the order
-                  localStorage.removeItem("cartItems");
-                  // Refresh the page to update the cart display
-                  setTimeout(function () {
-                      location.reload();
-                  }, 1000);
-              } else {
-                  // Failed to place the order
-                  alertify.error(response.message);
-              }
-          },
-          error: function (xhr, status, error) {
-              // Handle AJAX errors
-              console.error(xhr.responseText);
-              alertify.error('Failed to place order. Please try again later.');
+          if (customerID && cartItems.length > 0) {
+              // Prepare the order data
+              var orderData = {
+                  customerID: customerID,
+                  items: JSON.stringify(cartItems) // Convert items array to JSON string
+              };
+              console.log(orderData);
+              // Send the order data to orderProcess.php using AJAX
+              $.ajax({
+                  type: "POST",
+                  url: "orderProcess.php",
+                  data: orderData,
+                  dataType: "json",
+                  success: function (response) {
+                      // Handle the response from the server
+                      if (response.status === 'success') {
+                          // Order placed successfully
+                          alertify.success(response.message);
+                          // Clear the cart after placing the order
+                          localStorage.removeItem("cartItems");
+                          // Refresh the page to update the cart display
+                          setTimeout(function () {
+                              location.reload();
+                          }, 1000);
+                      } else {
+                          // Failed to place the order
+                          alertify.error(response.message);
+                      }
+                  },
+                  error: function (xhr, status, error) {
+                      // Handle AJAX errors
+                      console.error(xhr.responseText);
+                      alertify.error('Failed to place order. Please try again later.');
+                  }
+              });
+          } else {
+              // Show an error message if customerID is missing or cart is empty
+              alertify.error('Customer ID not found or Cart is empty!');
           }
-      });
-  } else {
-      // Show an error message if customerID is missing or cart is empty
-      alertify.error('Customer ID not found or Cart is empty!');
-  }
-}
+        }
 
         //END ORDER FUNCTION
 
