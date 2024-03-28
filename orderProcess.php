@@ -28,10 +28,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['customerID']) && isset
             // Insert order items into order_items_table
             foreach ($items as $item) {
                 $productID = $item['productId'];
+                $productPrice = $item['productPrice'];
                 $quantity = $item['quantity'];
                 $subtotal = $item['total'];
 
-                $insertOrderItemQuery = "INSERT INTO order_items_table (orderID, productID, quantity, subtotal) VALUES ('$orderID', '$productID', '$quantity', '$subtotal')";
+                $insertOrderItemQuery = "INSERT INTO order_items_table (orderID, productID, quantity, pricePerItem, subtotal) 
+                VALUES ('$orderID', '$productID', '$quantity', '$productPrice', '$subtotal')";
                 mysqli_query($con, $insertOrderItemQuery);
             }
 
