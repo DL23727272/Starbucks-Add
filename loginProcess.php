@@ -24,10 +24,12 @@ if (isset($_POST['customerLoginName']) && isset($_POST['customerLoginPassword'])
             $row = mysqli_fetch_assoc($result);
             // Verify hashed password
             if ($hashedPassword === $row['customerPassword']) {
+                $customerID = $row['customerID'];
                 // Passwords match, login successful
                 $response = [
                     'status' => 'success',
-                    'message' => 'Login successful! Welcome.'
+                    'message' => 'Welcome!',
+                    'customerID' => $customerID
                 ];
             } else {
                 // Passwords don't match, login failed

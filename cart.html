@@ -110,7 +110,7 @@
 
     <!--Cart-->
     <section class="container-sm mt-5">
-      <h5>Customer ID:</h5>
+      <h5  id="customerID"></h5>
       <h2>Your Cart: <b id="totalItems"></b> items</h2>
       <span id="cartStatus" class="lead badge text-bg-warning">
         Please select a product</span
@@ -131,9 +131,10 @@
         <div class="col-md-6 px-4">
             <h5>Total Amount: <span id="totalAmount">₱0.00</span></h5>
         </div>
-        <!-- <div class="col-md-6 text-end">
+        <div class="col-md-6 text-end">
             <button class="btn btn-primary" onclick="placeOrder()">Place Order</button>
-        </div> -->
+        </div>
+      
     </div>
     </section>
     <!---end Cart-->
@@ -200,12 +201,12 @@
             document.getElementById("navbar").classList.add("blurred");
             const navLinks = document.querySelectorAll(".nav-link");
             navLinks.forEach(link => link.classList.add("scrolled"));
-            document.getElementById("mugIcon").classList.add("scrolled"); // Add scrolled class to the icon
+            document.getElementById("mugIcon").classList.add("scrolled"); 
           } else {
             document.getElementById("navbar").classList.remove("blurred");
             const navLinks = document.querySelectorAll(".nav-link");
             navLinks.forEach(link => link.classList.remove("scrolled"));
-            document.getElementById("mugIcon").classList.remove("scrolled"); // Remove scrolled class from the icon
+            document.getElementById("mugIcon").classList.remove("scrolled"); 
           }
         }
       //end of function for navbarrr
@@ -213,6 +214,67 @@
 
        alertify.set('notifier', 'position', 'top-right');
        alertify.set('notifier', 'delay', 5);
+
+       document.addEventListener("DOMContentLoaded", function() {
+            var customerID = sessionStorage.getItem('customerID');
+            // Check if customerID is present
+            if (customerID) {
+              document.getElementById('customerID').innerText = 'Customer ID: ' + customerID;
+              console.log(customerID)
+               
+            } else {
+                console.log('Customer ID not found in sessionStorage'); 
+            }
+        });
+
+         // Function to place an order
+        // Function to place an order
+function placeOrder() {
+  var customerID = sessionStorage.getItem('customerID');
+  var cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
+
+  if (customerID && cartItems.length > 0) {
+      // Prepare the order data
+      var orderData = {
+          customerID: customerID,
+          items: JSON.stringify(cartItems) // Convert items array to JSON string
+      };
+      console.log(orderData);
+      // Send the order data to orderProcess.php using AJAX
+      $.ajax({
+          type: "POST",
+          url: "orderProcess.php",
+          data: orderData,
+          dataType: "json",
+          success: function (response) {
+              // Handle the response from the server
+              if (response.status === 'success') {
+                  // Order placed successfully
+                  alertify.success(response.message);
+                  // Clear the cart after placing the order
+                  localStorage.removeItem("cartItems");
+                  // Refresh the page to update the cart display
+                  setTimeout(function () {
+                      location.reload();
+                  }, 1000);
+              } else {
+                  // Failed to place the order
+                  alertify.error(response.message);
+              }
+          },
+          error: function (xhr, status, error) {
+              // Handle AJAX errors
+              console.error(xhr.responseText);
+              alertify.error('Failed to place order. Please try again later.');
+          }
+      });
+  } else {
+      // Show an error message if customerID is missing or cart is empty
+      alertify.error('Customer ID not found or Cart is empty!');
+  }
+}
+
+        //END ORDER FUNCTION
 
         document.addEventListener("DOMContentLoaded", function () {
             const displayCartItems = () => {

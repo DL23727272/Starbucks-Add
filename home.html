@@ -160,7 +160,7 @@
                        
                         <div class="form-group row justify-content-end"> 
                             <div class="col-auto">
-                                <button type="button" id="addProductButton" class="btn btn-outline-light" onclick="Login()">Submit</button>
+                                <button type="button" id="addProductButton" class="btn btn-outline-light" onclick="Login()">Login</button>
                             </div>
                         </div>
                     </div>
@@ -304,7 +304,11 @@
                     if (response.status === 'success') {
                         // Login successful
                         alertify.success(response.message);
-                        window.location.href = 'index.html';
+                        var customerID = response.customerID;
+                        sessionStorage.setItem('customerID', customerID);
+                        setTimeout(function() {
+                            window.location.href = 'index.html';
+                        }, 2000);
                      
                         // Redirect or perform actions after successful login
                     } else {
