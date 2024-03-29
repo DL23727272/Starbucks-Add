@@ -1,6 +1,8 @@
 <?php
 session_start();
 
+//fetch CUSTOMER ORDERS IN CART.HTML
+
 include "myConnection.php"; // Include your database connection file
 
 function displayOrders($con) {

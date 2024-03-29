@@ -1,5 +1,6 @@
 <?php
 
+//fetch product to HOME.HTML
 
 include 'myConnection.php';
 
