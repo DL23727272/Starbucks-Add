@@ -282,56 +282,62 @@
       function Login() {
           var username = document.getElementById("customerName").value;
           var password = document.getElementById("customerPassword").value;
-
+      
           if (username == "" && password == "") {
-            alertify.error('Empty fields! Please fill all the fields.');
-          }else if (username == "") {   
+              alertify.error('Empty fields! Please fill all the fields.');
+          } else if (username == "") {
               alertify.error('Fill up the Username field!');
           } else if (password == "") {
-                alertify.error('Fill up the Password field!');
+              alertify.error('Fill up the Password field!');
           } else {
-            // Send form data to loginProcess.php using AJAX
-            $.ajax({
-                type: "POST",
-                url: "loginProcess.php",
-                data: {
-                    customerLoginName: username,
-                    customerLoginPassword: password
-                },
-                dataType: "json",
-                success: function (response) {
-                    // Handle success response
-                    if (response.status === 'success') {
-                        // Login successful
-                        alertify.success(response.message + ' <i class="fa fa-spinner fa-spin"></i>');
-                        var customerID = response.customerID;
-                        sessionStorage.setItem('customerID', customerID);
-                        
-                        var customerNameInput =document.getElementById("customerName").value;
-                        var customerName = customerNameInput; 
-                        sessionStorage.setItem('customerName', customerName); //tangina  40mins para dito
+              // Send form data to loginProcess.php using AJAX
+              $.ajax({
+                  type: "POST",
+                  url: "loginProcess.php",
+                  data: {
+                      customerLoginName: username,
+                      customerLoginPassword: password
+                  },
+                  dataType: "json",
+                  success: function(response) {
+                      // Handle success response
+                      if (response.status === 'success') {
 
+                          // if login goods 
+                          alertify.success(response.message + ' <i class="fa fa-spinner fa-spin"></i>');
 
-                        setTimeout(function() {
-                            window.location.href = 'home.html';
-                        }, 2000);
-                     
-                        // Redirect or perform actions after successful login
-                    } else {
-                        // Login failed
-                        alertify.error(response.message);
-                        // Display error message to the user
-                    }
-                },
-                error: function (xhr, status, error) {
-                    // Handle error response
-                    console.error(xhr.responseText);
-                    alertify.error('Failed to log in!');
-                    // Display error message to the user
-                }
-            });
+                          var customerID = response.customerID;
+                          sessionStorage.setItem('customerID', customerID);
+      
+                          var customerNameInput = document.getElementById("customerName").value;
+                          var customerName = customerNameInput;
+                          sessionStorage.setItem('customerName', customerName); //tangina  40mins para dito
+      
+                          setTimeout(function() {
+
+                              // condition for the type if admin or user
+
+                              if (response.userType === 'admin') {
+                                  window.location.href = 'admin.html'; 
+                              } else {
+                                  window.location.href = 'home.html'; 
+                              }
+
+                          }, 2000);
+      
+                      } else {
+                          alertify.error(response.message);// Display error message 
+                      }
+                  },
+                  error: function(xhr, status, error) {
+                      console.error(xhr.responseText);
+                      alertify.error('Failed to log in!');
+                      // Display error message 
+                  }
+              });
           }
       }
+    
 
       function Signup() {
           // Get form data
@@ -380,20 +386,20 @@
        
        adminLoadProducts();
 
-       function adminLoadProducts() { 
-          $.ajax({
-              url: 'adminFetchProduct.php',
-              success: function (data) { 
-                  if (data.trim() === '') {
-                      $('#products').append('<div><p>NO PRODUCTS AVAILABLE</p></div>');
-                  } else {
-                      $('#products').append(data);
-                  }
-              },
-              error: function () {
-                  $('#products').append('<div><p>Error loading products. Please try again later.</p></div>');
-              }
-          });
+      function adminLoadProducts() { 
+        $.ajax({
+            url: 'adminFetchProduct.php',
+            success: function (data) { 
+                if (data.trim() === '') {
+                    $('#products').append('<div><p>NO PRODUCTS AVAILABLE</p></div>');
+                } else {
+                    $('#products').append(data);
+                }
+            },
+            error: function () {
+                $('#products').append('<div><p>Error loading products. Please try again later.</p></div>');
+            }
+        });
       }
     </script>
 </body>
