@@ -1,9 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+<html>
+  <head>
+    <title>Home</title>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
@@ -18,383 +16,434 @@
 
     <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
     <link rel="icon" type="image/x-icon" href="/img/logo.ico">
-
+      <!--
+        You may not copy, reproduce, distribute, publish, display, perform, modify, create derivative works, transmit, 
+        or in any way exploit any such content, nor may you distribute any part of this content over any network, including a local area network, 
+        sell or offer it for sale, or use such content to construct any kind of database. You may not alter or remove any copyright or 
+        other notice from copies of the content on AI Tech’s website. 
+      -->
     <style>
-          .navbar {
-            background-color: #006341; 
-            transition: background-color 0.3s ease; 
-          }
-          .navbar.blurred {
-            background-color: transparent; /* aalisin niya yung background color */
-            backdrop-filter: blur(20px); /* then eto papalit, blur effect */
-          }
-          .nav-link {
-            color: white;
-            font-weight: 500;
-            transition: color 0.3s ease 
-          }
-          .nav-link.scrolled {
-            color: #000000;
-            font-weight: 500;
-          }
-          .nav-link.scrolled:hover {
-            color: #006341; 
-            font-weight: 500;
-          }
-          input{
-            border-radius: 10px;
-            background: #c8c1c1;
-            box-shadow: inset 5px 5px 6px #8a8585,
-                        inset -5px -5px 6px #fffdfd;
-          }
-          .login_card{
-            height: 90%;
-            border-radius: 6px;
-            background-color: rgba(255, 255, 255, 0.385); 
-            backdrop-filter: blur(10px); 
-            box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
-          }
-          .login__bg{
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            object-position: center;
-            z-index: -1;
-          }
-           /* Scrollbar*/
-          ::-webkit-scrollbar {
-            width: 20px;
-          }
-          ::-webkit-scrollbar-track {
-            box-shadow: inset 0 0 5px grey; 
-            border-radius: 10px;
-          }
-          ::-webkit-scrollbar-thumb {
-            background: #006341; 
-            border-radius: 10px;
-          }
-          ::-webkit-scrollbar-thumb:hover {
-            background: #b30000; 
-          }
-          /* END OF Scrollbar */
+      .thumb {
+        display: flex;
+        margin-top: -60px;
+        justify-content: center;
+      }
+      .thumb a:hover {
+        margin-top: -15px;
+        transition: 0.2s;
+      }
+      .thumb img {
+        width: 54px;
+        margin: 20px 20px 0 10px;
+        max-height: 100%;
+      }
+
+       /* Scrollbar*/
+      ::-webkit-scrollbar {
+        width: 20px;
+      }
+      ::-webkit-scrollbar-track {
+        box-shadow: inset 0 0 5px grey; 
+        border-radius: 10px;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #006341; 
+        border-radius: 10px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #b30000; 
+      }
+      /* END OF Scrollbar */
+
+      .navbar {
+        background-color: #006341; 
+        transition: background-color 0.3s ease; 
+      }
+      .navbar.blurred {
+        background-color: transparent; /* aalisin niya yung background color */
+        backdrop-filter: blur(20px); /* then eto papalit, blur effect */
+      }
+      .nav-link {
+        color: white;
+        font-weight: 500;
+        transition: color 0.3s ease 
+      }
+      .nav-link.scrolled {
+        color: #000000;
+        font-weight: 500;
+      }
+      .nav-link.scrolled:hover {
+        color: #006341; 
+        font-weight: 500;
+      }
+      #mugIcon {
+        color: white;
+        transition: color 0.3s ease; /* Smooth transition effect for icon color */
+      }
+      
+      #mugIcon.scrolled {
+        color: #000000; /* Change icon color when scrolled */
+      }
+      #fruitimage {
+        max-width: 100%;
+        max-height: 300px; /* Adjust the height as needed */
+    }
     </style>
-</head>
-<body>
-     <!--Navbar-->
-     <nav class="navbar navbar-expand-lg shadow-lg sticky-top" id="navbar">
-        <div class="container-sm d-flex justify-content-between" style="width: 100%">
-  
-          <div class="d-flex justify-content-between align-items-center" style="width: 100vw">
-            <div>
-              <img src="./img/logo.png" alt="" style="width: 100px" />
-            </div>
-            <div>
-              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent">
-                <i class="fa-solid fa-mug-hot" id="mugIcon"></i>
-              </button>
-            </div>
+  </head>
+  <body class="">
+
+    <!--Navbar-->
+    <nav class="navbar navbar-expand-lg shadow-lg sticky-top" id="navbar">
+      <div class="container-sm d-flex justify-content-between" style="width: 100%">
+
+        <div class="d-flex justify-content-between align-items-center" style="width: 100vw">
+          <div>
+            <a href="#"> <img src="./img/logo.png" alt="" style="width: 100px" /></a>
           </div>
-      
-          <div class="collapse navbar-collapse container-fluid" id="navbarSupportedContent" style="width: 30vw">
-            <ul class="navbar-nav mb-2 mb-lg-0">
-              <li class="nav-item">
-                <a class="nav-link " aria-current="page" href="#">
-                  Home
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link  " href="home.html#products">
-                  Products
-                </a>
-              </li>
-            </ul>
-          </div>
-  
-        </div>
-      </nav>
-      <!--End ti Navbar -->
-
-      <img src="img/banner.jpg" alt="image" class="login__bg">
-
-      
-
-      <!-- LOGIN FORM -->
-      <section class="vh-100">
-       
-        <div class="container-sm mt-5 ">
-          <div class="row">
-  
-            <div class="col">
-            </div>
-  
-            <div class="col">
-            </div>
-  
-            <div class="col ">
-                <div class="login_card card mt-4">
-                  <form enctype="multipart/form-data" method="POST" class="mt-1">
-                    <div class="m-5">
-                        <div class="form-group my-4">
-                          <img src="img/hero.png" alt="" style="width: 300px; ">
-                        </div>
-                        <div class="form-group my-4">
-                            <label for="Name" style="font-weight: 700;"><i class="fa-solid fa-signature"></i> Username</label>
-                            <input type="text" name="customerName" id="customerName" placeholder="Enter Username" class=" form-control" required>
-                        </div>
-                        <div class="form-group my-4">
-                          <label for="pass" style="font-weight: 700;"><i class="fa-solid fa-lock"></i> Password</label>
-                          <input type="password" name="customerPassword" id="customerPassword" placeholder="Enter Password" class="  form-control" required>
-                        </div>
-                         <div class="col-sm">
-                            <p style="font-size: 13px; color: rgb(0, 0, 0);">
-                                Don't have an account? 
-                                <a  data-bs-toggle="modal" data-bs-target="#exampleModal" 
-                                    style="text-overflow: unset; color: rgb(252, 254, 255); text-decoration: none; " 
-                                    onmouseover="this.style.textDecoration='underline'" 
-                                    onmouseout="this.style.textDecoration='none'">
-                                  Sign up
-                                </a>
-                            </p>
-                        </div>
-                       
-                        <div class="form-group row justify-content-end"> 
-                            <div class="col-auto">
-                                <button type="button" id="addProductButton" class="btn btn-outline-light" onclick="Login()">Login</button>
-                            </div>
-                        </div>
-                    </div>
-                  </form>
-                </div>
-            </div>
-
+          <div>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent">
+              <i class="fa-solid fa-mug-hot" id="mugIcon"></i>
+            </button>
           </div>
         </div>
-       
-      </section>
-
-      <!-- MODAL -->
-
-      <div id="modalContainer"></div>
-
-      <!-- END MODAL -->
-
-      <hr class="container-sm Sborder border-success mt-5 border-2 opacity-50" />
-
-      <!--Hero-->
-      <section class="container-sm">
-        <div class="d-flex flex-column align-items-center text-center">
-          <img
-            src="./img/hero.png"
-            style="width: 200px; height: 45px"
-            alt=""
-            class="mt-5 mb-3 img-fluid"
-            srcset=""
-          />
-          <p class="w-75 lead text-secondary fst-italic">
-            Starbucks is more than just a coffee shop; it's a community hub where
-            people connect over delicious drinks and meaningful moments. With our
-            expertly crafted coffees, teas, and snacks, every visit is an
-            opportunity to treat yourself to quality and comfort. From our iconic
-            lattes to seasonal favorites, there's something for every palate. Join
-            us at Starbucks and let's make every sip count.
-          </p>
-          <!-- <a class="nav-link" data-bs-toggle="modal" data-bs-target="#addProduct"> 
-          <button class="btn btn-outline-success" >Add Product</button>
-          </a> -->
-        </div>
-      </section>
-      <!-- End Hero-->
-
-      <hr class="container-sm Sborder border-success mt-5 border-2 opacity-50" />
-      <!-- PRODUCT CONTENT -->
-      <section class="mt-5">
-        <div class="container-sm">
-
-          <div class="row justify-content-center">
-            <div class="col-12 text-center">
-              <h1 class="fst-italic">Our Products</h1>
-            </div>
-          </div>
-
-          <div class=" w-100" id="products"></div>
-          <!-- THE PRODUCTS WILL SHOW HERE -->
-          </div>
-        </div>
-      </section>
-      <!-- END PRODUCT CONTENT -->
-
-      <!---Footer-->
-      <footer class="mt-5 text-white p-3" style="background-color: #006341;">
-        <div class="container-sm d-flex justify-content-between align-items-center">
-          <div class="">
-            <h4>AI Tech</h4>
-            <h5>CCSIT 210</h5>
-            <p>BSIT-3A</p>
-            <p>Worksheet 5.5 Database Driven JQuery Web-based Shop</p>
-            <p>Submitted to: Sir. Donn Genita </p>
-            <ul>
-              <li>Dran Leynard Gamoso</li>
-              <li>Mark Jeriel Cabalbag</li>
-            </ul>
-          </div>
-          <div class="">
-            <div>
-              <img src="./img/top.png" style=" width: 50px; height: 50px;" alt="">
-            </div>
-            <div>
-              <p class="fst-bold">&copy; 2024; J&D</p>
-            </div>
-          </div>
-        </div>
-      </footer>
-     <!---End Footer-->
-
-     <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
-     <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
-     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-     <script type="text/javascript">
-      alertify.set('notifier', 'position', 'top-right');
-
-      $(document).ready(function () {
-        $('#modalContainer').load('modal.html');
-      });
     
-      //For navbar
-      window.onscroll = function () { scrollFunction() };
+        <div class="collapse navbar-collapse container-fluid" id="navbarSupportedContent" style="width: 30vw">
+          <ul class="navbar-nav mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link " aria-current="page" href="#">
+                Home
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link  " href="#content">
+                Product
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link " href="cart.html">
+                Cart
+              </a>
+            </li>
+          </ul>
+        </div>
 
-      function scrollFunction() {
-        if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
-          document.getElementById("navbar").classList.add("blurred");
-          const navLinks = document.querySelectorAll(".nav-link");
-          navLinks.forEach(link => link.classList.add("scrolled"));
-          document.getElementById("mugIcon").classList.add("scrolled"); // Add scrolled class to the icon
-        } else {
-          document.getElementById("navbar").classList.remove("blurred");
-          const navLinks = document.querySelectorAll(".nav-link");
-          navLinks.forEach(link => link.classList.remove("scrolled"));
-          document.getElementById("mugIcon").classList.remove("scrolled"); // Remove scrolled class from the icon
-        }
-      }
-      //end of function for navbarrr
+      </div>
+    </nav>
+    <!--End ti Navbar -->
+
+    <!-- MODAL ADD ITEMS -->
+    <div id="modalContainer"></div>
+    <!-- END MODAL ADD ITEMSSSSSSSS -->
+
+    
+    <!--Banner-->
+    <div>
+      <div class="position-relative">
+        <img
+          src="./img/banner.jpg"
+          class="w-100 img-fluid"
+          style="
+            height: 50vh;
+            object-fit: cover;
+            filter: blur(2px);
+            filter: saturate(2);
+          "
+        />
+        <section
+          class="position-absolute top-50 start-50 translate-middle text-center text-white"
+        >
+          <h1 class="text-white h1">Starbucks</h1>
+          <p class="lead fst-italic h4">
+            <i class="fa-solid fa-quote-left"></i> Find Your Perfect Sip at
+            Starbucks! <i class="fa-solid fa-quote-right"></i>
+          </p>
+          <button class="btn text-white shadow" style="background-color: #006341; transition: background-color 0.3s;"
+                  onmouseover="this.style.backgroundColor='#004f2d'"
+                  onmouseout="this.style.backgroundColor='#006341'">
+                  
+            <a href="#content" style="text-decoration: none; color: white;">
+              <i class="fa-solid fa-mug-hot"></i> Order Now
+            </a>
+
+          </button>
+        </section>
+      </div>
+    </div>
+    <!--End Banner-->
+
+    <!---Carousel-->
+    
+    <div class="container-sm mt-5 my-5 text-center">
+        <div class="row">
+            <div class="col-md-4"></div>
+            <div class="col-sm-12 col-md-4 mx-auto">
+                <img src="img/img1.png" alt="" class="starbucks img-fluid" style="width: 300px; height: 400px; filter: drop-shadow(11px 13px 9px #000000); 
+            -webkit-filter: drop-shadow(11px 13px 9px #000000); -moz-filter: drop-shadow(11px 13px 9px #000000);" />
+            </div>
+            <div class="col-md-4"></div>
+        </div>
+    </div>
+  
+    <br>
+  
+    <div class="container mt-5">
+      <div class="row">
+
+        <div class="col-md-3">
+        </div>
+    
+        <div class="col-md-6 my-5">
+          <div class="thumb d-flex justify-content-center " >
+            <a href="index.html#content">
+              <img id="bottom" src="img/thumb1.png" onmouseover="imgSlider('img/img1.png');" />
+            </a>
+            <a href="index.html#content">
+              <img src="img/thumb2.png" onmouseover="imgSlider('img/img2.png');" />
+            </a>
+            <a href="index.html#content">
+              <img src="img/thumb3.png" onmouseover="imgSlider('img/img3.png');" />
+            </a>
+            <a href="index.html#content">
+              <img src="img/thumb4.png" onmouseover="imgSlider('img/img4.png');" />
+            </a>
+           
+          </div>
+        </div>
+
+        <div class="col-md-2">
+        </div>
+
+      </div>
+    </div>
+    <!--End Carousel-->
+  
+    <hr class="container-sm Sborder border-success mt-5 border-2 opacity-50" />
+
+    <!--Hero-->
+    <section class="container-sm">
+      <div class="d-flex flex-column align-items-center text-center">
+        <img
+          src="./img/hero.png"
+          style="width: 200px; height: 45px"
+          alt=""
+          class="mt-5 mb-3 img-fluid"
+          srcset=""
+        />
+        <p class="w-75 lead text-secondary fst-italic">
+          Starbucks is more than just a coffee shop; it's a community hub where
+          people connect over delicious drinks and meaningful moments. With our
+          expertly crafted coffees, teas, and snacks, every visit is an
+          opportunity to treat yourself to quality and comfort. From our iconic
+          lattes to seasonal favorites, there's something for every palate. Join
+          us at Starbucks and let's make every sip count.
+        </p>
+        <!-- <a class="nav-link" data-bs-toggle="modal" data-bs-target="#addProduct"> 
+        <button class="btn btn-outline-success" >Add Product</button>
+        </a> -->
+      </div>
+    </section>
+    <!-- End Hero-->
+
+    <hr class="container-sm Sborder border-success mt-5 border-2 opacity-50" />
+
+    <section class="mt-5">
+      <div class="container-sm">
+        <div
+          class=" w-100"
+          id="content"
+        ></div>
+      </div>
+    </section>
+    
+    
+    <!---Footer-->
+    <footer class="mt-5 text-white p-3" style="background-color: #006341;">
+      <div class="container-sm d-flex justify-content-between align-items-center">
+        <div class="">
+          <h4>AI Tech</h4>
+          <h5>CCSIT 210</h5>
+          <p>BSIT-3A</p>
+          <p>Worksheet 5.5 Database Driven JQuery Web-based Shop</p>
+          <p>Submitted to: Sir. Donn Genita </p>
+          <ul>
+            <li>Dran Leynard Gamoso</li>
+            <li>Mark Jeriel Cabalbag</li>
+          </ul>
+        </div>
+        <div class="">
+          <div>
+            <img src="./img/top.png" style=" width: 50px; height: 50px;" alt="">
+          </div>
+          <div>
+            <p class="fst-bold">&copy; 2024; J&D</p>
+           
+          </div>
+        </div>
+      </div>
+    </footer>
+     <!---End Footer-->
      
-      //form validation
-      function Login() {
-          var username = document.getElementById("customerName").value;
-          var password = document.getElementById("customerPassword").value;
+      <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+      <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+      <script type="text/javascript">
+        //For navbar
+        window.onscroll = function () { scrollFunction() };
 
-          if (username == "" && password == "") {
-            alertify.error('Empty fields! Please fill all the fields.');
-          }else if (username == "") {   
-              alertify.error('Fill up the Username field!');
-          } else if (password == "") {
-                alertify.error('Fill up the Password field!');
+        function scrollFunction() {
+          if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
+            document.getElementById("navbar").classList.add("blurred");
+            const navLinks = document.querySelectorAll(".nav-link");
+            navLinks.forEach(link => link.classList.add("scrolled"));
+            document.getElementById("mugIcon").classList.add("scrolled"); // Add scrolled class to the icon
           } else {
-            // Send form data to loginProcess.php using AJAX
+            document.getElementById("navbar").classList.remove("blurred");
+            const navLinks = document.querySelectorAll(".nav-link");
+            navLinks.forEach(link => link.classList.remove("scrolled"));
+            document.getElementById("mugIcon").classList.remove("scrolled"); // Remove scrolled class from the icon
+          }
+        }
+        //end of function for navbarrr
+      
+        // For carousel na nag chachange image
+        function imgSlider(anything){
+          document.querySelector('.starbucks').src = anything;
+        }
+
+        alertify.set('notifier', 'position', 'top-right');
+        alertify.set('notifier', 'delay', 5);
+        
+
+     /*   document.addEventListener("DOMContentLoaded", function() {
+            var customerID = sessionStorage.getItem('customerID');
+        
+            if (customerID) {
+              document.getElementById('customerID').innerText = 'Customer ID: ' + customerID;
+            } else {
+                console.log('Customer ID not found in sessionStorage'); 
+            }
+        });
+      */
+
+
+        // para sa modal add product
+        $(document).ready(function () {
+        
+          $('#modalContainer').load('modal.html');
+
+          $('#total').hide()
+          $(".addtocart").click(function () {
+            
+              var productId = $(this).data("product-id");
+              var productName = $(this).data("product-name");
+              var productImage = $(this).data("product-image");
+              var productDetail = $(this).data("product-detail");
+              var productPrice = $(this).data("product-price");
+
+              //ayaw magpakita yung picture sa modal 
+              console.log("Product Image URL:", productImage);
+              console.log("Product ID:", productId);
+              console.log("Product Name:", productName);
+              console.log("Product Image:", productImage);
+              console.log("Product Detail:", productDetail);
+              console.log("Product Price:", productPrice);
+              
+              $("#modalProduct #fruitname").text(productName);
+              $("#modalProduct #fruitprice").text("Php " + productPrice);
+              $("#modalProduct #fruitdetail").text(productDetail);
+              $("#modalProduct #fruitimage").attr("src", "/3rdyr/starbuckz/products/" + productImage); //kelangan pala yunf directory lols my ghad sayang 30 mins
+
+              //FUnction for Increment Button on MOdal product
+              $("#increment").click(function () {
+                  let quantity = parseInt($("#quantity").val());
+                  quantity += 1; 
+                  $("#quantity").val(quantity); 
+                  $('#total').show();
+                  $('#total').val(productPrice * quantity); 
+              });
+            
+              //FUnction for Decrement Button on MOdal product
+              $("#decrement").click(function () {
+                  let quantity = parseInt($("#quantity").val());
+                  if (quantity > 0) {
+                      quantity -= 1; 
+                      $("#quantity").val(quantity); 
+                      $('#total').show();
+                      $('#total').val(productPrice * quantity); 
+                  }
+              });
+            
+              $('#close').click(function(){
+                $('#quantity').val(0);
+                $('#total').hide()
+
+                //mahirap na bug requires modern solution reload para di mag double yung Qt sa modal
+                setTimeout(function () {
+                    location.reload();
+                }, 10);
+              });
+
+              $('#buy').click(function () {
+                  alertify.success('Item added to cart!');
+              
+                  var quantity = parseInt($("#quantity").val());
+                  var total = productPrice * quantity;
+              
+                  var cartItem = {
+                      productId: productId, // Use the productId variable
+                      productName: productName,
+                      productPrice: productPrice,
+                      quantity: quantity,
+                      total: total
+                  };
+              
+                  // Store the cart item in localStorage
+                  var cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
+                  cartItems.push(cartItem);
+                  localStorage.setItem("cartItems", JSON.stringify(cartItems));
+              
+                  // Clear the quantity after adding to cart
+                  $("#quantity").val(0);
+              
+                  // Reload the page after a delay (e.g., 2000 milliseconds = 2 seconds)
+                  setTimeout(function () {
+                      location.reload();
+                  }, 2000);
+              });
+            
+            
+              // Function to display cart items
+              function displayCartItems() {
+                    var cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
+                    var cartOutput = "Product Name\tQuantity\tTotal\n";
+              }
+              
+              // Display cart items when the page loads
+              displayCartItems();
+              
+        
+          });
+        });
+
+        loadProducts(); 
+            
+        function loadProducts() { 
             $.ajax({
-                type: "POST",
-                url: "loginProcess.php",
-                data: {
-                    customerLoginName: username,
-                    customerLoginPassword: password
-                },
-                dataType: "json",
-                success: function (response) {
-                    // Handle success response
-                    if (response.status === 'success') {
-                        // Login successful
-                        alertify.success(response.message);
-                        var customerID = response.customerID;
-                        sessionStorage.setItem('customerID', customerID);
-                        
-                        var customerNameInput =document.getElementById("customerName").value;
-                        var customerName = customerNameInput; 
-                        sessionStorage.setItem('customerName', customerName); //tangina  40mins para dito
-
-
-                        setTimeout(function() {
-                            window.location.href = 'index.html';
-                        }, 2000);
-                     
-                        // Redirect or perform actions after successful login
+                url: 'fetchProduct.php',
+                success: function (data) { 
+                    if (data.trim() === '') {
+                        $('#content').append('<div><p>NO PRODUCTS AVAILABLE</p></div>');
                     } else {
-                        // Login failed
-                        alertify.error(response.message);
-                        // Display error message to the user
+                        $('#content').append(data);
                     }
                 },
-                error: function (xhr, status, error) {
-                    // Handle error response
-                    console.error(xhr.responseText);
-                    alertify.error('Failed to log in!');
-                    // Display error message to the user
+                error: function () {
+                    $('#content').append('<div><p>Error loading products. Please try again later.</p></div>');
                 }
             });
         }
-      }
-
-      function Signup() {
-          // Get form data
-          var customerSignUpEmail = document.getElementById("customerSignUpEmail").value;
-          var customerSignUpName = document.getElementById("customerSignUpName").value;
-          var customerSignUpPassword = document.getElementById("customerSignUpPassword").value;
-      
-          if (customerSignUpName == "" && customerSignUpPassword == "" && customerSignUpEmail == "") {
-            alertify.error('Empty fields! Please fill all the fields.');
-          }else if (customerSignUpName == "") {   
-              alertify.error('Fill up the Username field!');
-          } else if (customerSignUpPassword == "") {
-                alertify.error('Fill up the Password field!');
-          } else if (customerSignUpEmail == "") {
-            alertify.error('Fill up the Email field!');
-          } else {
-            // Send form data to signupProcess.php using AJAX
-            $.ajax({
-                type: "POST",
-                url: "signupProcess.php",
-                data: {
-                    customerSignUpEmail: customerSignUpEmail,
-                    customerSignUpName: customerSignUpName,
-                    customerSignUpPassword: customerSignUpPassword
-                },
-                dataType: "json",
-                success: function (response) {
-                    if (response.status === 'success') {
-                        alertify.success(response.message);
-                        $('#exampleModal').modal('hide');
-                    } else {
-                        alertify.error(response.message);
-                    }
-                },
-                error: function (xhr, status, error) {
-                    // Handle error response
-                    console.error(xhr.responseText);
-                    alertify.error('Failed to sign up!');
-                    // Display error message to the user
-                }
-            });
-          }
-      }
-
-       //FOR NOW LOAD PRODUCTS USING ADMINLOADPRODUCTS.PHP 
-       
-       adminLoadProducts();
-
-       function adminLoadProducts() { 
-          $.ajax({
-              url: 'adminFetchProduct.php',
-              success: function (data) { 
-                  if (data.trim() === '') {
-                      $('#products').append('<div><p>NO PRODUCTS AVAILABLE</p></div>');
-                  } else {
-                      $('#products').append(data);
-                  }
-              },
-              error: function () {
-                  $('#products').append('<div><p>Error loading products. Please try again later.</p></div>');
-              }
-          });
-      }
-    </script>
-</body>
+  
+  
+      </script>
+  </body>
 </html>
