@@ -23,7 +23,7 @@ include "myConnection.php";
                 echo "<button class='accordion-button' type='button' data-bs-toggle='collapse' data-bs-target='#collapse$orderID' aria-expanded='true' aria-controls='collapse$orderID'>";
                 echo "Order ID: $orderID | Customer ID: $customerID | Date: $orderDate | Total Price: $totalPrice | Status: ";
                 // Dropdown menu for changing order status
-                echo "<select class='form-select' onchange='updateStatus($orderID, this.value)'>";
+                echo "‎<select class='form-select' style='width: 200px;' onchange='updateStatus($orderID, this.value)'>";
                 echo "<option value='Pending' ".($status == 'Pending' ? 'selected' : '').">Pending</option>";
                 echo "<option value='Processing' ".($status == 'Processing' ? 'selected' : '').">Processing</option>";
                 echo "<option value='Completed' ".($status == 'Completed' ? 'selected' : '').">Completed</option>";
