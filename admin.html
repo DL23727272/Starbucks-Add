@@ -304,7 +304,7 @@
       //Load ORDERS USING FETCHORDERS.PHP
       function loadOrders() { 
           $.ajax({
-              url: 'fetchOrders.php',
+              url: 'adminFetchOrders.php',
               success: function (data) { 
                   if (data.trim() === '') {
                       $('#content').append('<div><p>NO PRODUCTS AVAILABLE</p></div>');

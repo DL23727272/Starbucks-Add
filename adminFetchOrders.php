@@ -37,11 +37,11 @@ function displayOrders($con) {
 
             // Display order items in the table
             echo "<table class='table'>";
-            echo "<thead>";
+            echo "<thead class='text-center'>";
             echo "<tr>";
-            echo "<th>Product Name</th>";
-            echo "<th>Quantity</th>";
-            echo "<th>Subtotal</th>";
+            echo "<th class='bg-primary text-white'>Product Name</th>";
+            echo "<th class='bg-success text-white'>Quantity</th>";
+            echo "<th class='bg-warning text-white'>Subtotal</th>";
             echo "</tr>";
             echo "</thead>";
             echo "<tbody>";
@@ -50,7 +50,7 @@ function displayOrders($con) {
                 $quantity = $item['quantity'];
                 $subtotal = $item['subtotal'];
 
-                echo "<tr>";
+                echo "<tr class='text-center'>";
                 echo "<td>$productName</td>";
                 echo "<td>$quantity</td>";
                 echo "<td>$subtotal</td>";
