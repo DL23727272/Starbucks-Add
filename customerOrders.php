@@ -31,8 +31,8 @@ function displayOrders($con) {
 
             // Table setup for order details
             echo "<table class='table'>";
-            echo "<thead>";
-            echo "<tr class='text-center' >";
+            echo "<thead class='text-center'>";
+            echo "<tr>";
             echo "<th colspan='3' class='bg-info text-dark'>Total Amount: Php $totalPrice</th>";
             echo "</tr>";
             echo "<tr>";
@@ -58,7 +58,7 @@ function displayOrders($con) {
                 $quantity = $item['quantity'];
                 $subtotal = $item['subtotal'];
 
-                echo "<tr>";
+                echo "<tr class='text-center'>";
                 echo "<td>$productName</td>";
                 echo "<td>$quantity</td>";
                 echo "<td>$subtotal</td>";
