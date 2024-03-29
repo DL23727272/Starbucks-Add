@@ -235,16 +235,31 @@
           if (customerID) {
               // Send AJAX request to fetch orders for the customer
               $.ajax({
-                  url: 'customerOrders.php',
-                  method: 'GET',
-                  data: { customerID: customerID }, // Pass customerID to the PHP script
-                  success: function(response) {
-                      $('#orders').html(response); //automatic reload the status
-                  },
-                  error: function(xhr, status, error) {
-                      console.error(error);
-                  }
-              });
+                url: 'customerOrders.php',
+                method: 'GET',
+                data: { customerID: customerID },
+                success: function(response) {
+                    $('#orders').html(response);
+                    // Reload the orders section periodically
+                    setInterval(function () {
+                        $.ajax({
+                            url: 'customerOrders.php',
+                            method: 'GET',
+                            data: { customerID: customerID },
+                            success: function(newResponse) {
+                                $('#orders').html(newResponse);
+                            },
+                            error: function(xhr, status, error) {
+                                console.error(error);
+                            }
+                        });
+                    }, 2000); // Reload every 2 seconds
+                },
+                error: function(xhr, status, error) {
+                    console.error(error);
+                }
+            });
+            
 
             // Send AJAX request to fetch total number of orders for the customer
               $.ajax({
