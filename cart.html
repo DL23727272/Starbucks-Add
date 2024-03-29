@@ -141,6 +141,19 @@
 
     <hr class="container-sm Sborder border-success mt-5 border-2 opacity-50" />
 
+    <!-- ORDER CONTENT -->
+    <section class="container-sm mt-5">
+      <h2>Your Orders: <b id="totalOrders"></b> </h2>
+      <div class="container-sm">
+        <div id="orders">
+
+        </div>
+      </div>
+    </section>
+    <!-- END OF ORDER CONTENT -->
+
+    <hr class="container-sm Sborder border-success mt-5 border-2 opacity-50" />
+
     <!--Hero-->
     <section class="container-sm">
       <div class="d-flex flex-column align-items-center text-center">
@@ -210,6 +223,48 @@
           }
         }
       //end of function for navbarrr
+
+      //fetch the customer order
+      $(document).ready(function() {
+          // Retrieve customer ID from sessionStorage
+          var customerID = sessionStorage.getItem('customerID');
+          console.log('Retrieved Customer ID: ' + customerID);
+
+          
+          // Check if customerID is present
+          if (customerID) {
+              // Send AJAX request to fetch orders for the customer
+              $.ajax({
+                  url: 'customerOrders.php',
+                  method: 'GET',
+                  data: { customerID: customerID }, // Pass customerID to the PHP script
+                  success: function(response) {
+                      $('#orders').html(response);
+                  },
+                  error: function(xhr, status, error) {
+                      console.error(error);
+                  }
+              });
+
+            // Send AJAX request to fetch total number of orders for the customer
+              $.ajax({
+                  url: 'countOrders.php',
+                  method: 'GET',
+                  data: { customerID: customerID }, // Pass customerID to the PHP script
+                  success: function(totalOrders) {
+                      $('#totalOrders').text(totalOrders); // Update the total orders count in the HTML
+                      console.log('TOTal Orders: ' + totalOrders);
+                  },
+                  error: function(xhr, status, error) {
+                      console.error(error);
+                  }
+              });
+
+          } else {
+              console.log('Customer ID not found in sessionStorage'); 
+          }
+      });
+    
       
 
        alertify.set('notifier', 'position', 'top-right');

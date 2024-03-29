@@ -1,49 +1,54 @@
 <?php
 session_start();
+
 include "myConnection.php"; // Include your database connection file
 
 function displayOrders($con) {
-    // Query to fetch all orders
-    $ordersQuery = "SELECT * FROM order_table";
+
+    $customerID = $_GET['customerID'];
+
+    // Query to fetch orders for the current customer
+    $ordersQuery = "SELECT * FROM order_table WHERE customerID = $customerID";
     $result = mysqli_query($con, $ordersQuery);
+    
 
     // Check if there are any orders
     if (mysqli_num_rows($result) > 0) {
         while ($row = mysqli_fetch_assoc($result)) {
             $orderID = $row['orderID'];
-            $customerID = $row['customerID'];
-            $orderDate = $row['orderDate'];
             $totalPrice = $row['totalPrice'];
-            $status = $row['status'];
 
-            // Output HTML for each order
+            // Accordion setup
             echo "<div class='accordion mt-4' id='accordion$orderID' style='width: 100%;'>";
             echo "<div class='accordion-item'>";
             echo "<h2 class='accordion-header'>";
             echo "<button class='accordion-button' type='button' data-bs-toggle='collapse' data-bs-target='#collapse$orderID' aria-expanded='true' aria-controls='collapse$orderID'>";
-            echo "Order ID: $orderID | Customer ID: $customerID | Date: $orderDate | Total Price: $totalPrice | Status: $status";
+            echo "Order ID: $orderID (Total Amount: Php $totalPrice)";
             echo "</button>";
             echo "</h2>";
             echo "<div id='collapse$orderID' class='accordion-collapse collapse' data-bs-parent='#accordion$orderID'>";
             echo "<div class='accordion-body'>";
-            
-            // Query to fetch order items for the current orderID
-            $orderItemsQuery = "SELECT oi.quantity, oi.subtotal, p.productName 
-                                FROM order_items_table oi
-                                INNER JOIN product_table p ON oi.productID = p.productID
-                                WHERE oi.orderID = $orderID";
-                                
-            $itemsResult = mysqli_query($con, $orderItemsQuery);
 
-            // Display order items in the table
+            // Table setup for order details
             echo "<table class='table'>";
             echo "<thead>";
             echo "<tr>";
             echo "<th>Product Name</th>";
             echo "<th>Quantity</th>";
-            echo "<th>Subtotal</th>";
+            echo "<th>Total</th>";
             echo "</tr>";
             echo "</thead>";
+            echo "<tbody>";
+
+            // Query to fetch order items for the current orderID
+            $orderItemsQuery = "SELECT oi.quantity, oi.subtotal, p.productName 
+                                FROM order_items_table oi
+                                INNER JOIN product_table p ON oi.productID = p.productID
+                                WHERE oi.orderID = $orderID";
+
+            $itemsResult = mysqli_query($con, $orderItemsQuery);
+
+            // Display order items in the table
             echo "<tbody>";
             while ($item = mysqli_fetch_assoc($itemsResult)) {
                 $productName = $item['productName'];
@@ -63,6 +68,7 @@ function displayOrders($con) {
             echo "</div>"; // accordion-collapse
             echo "</div>"; // accordion-item
             echo "</div>"; // accordion
+
         }
     } else {
         echo "No orders found.";
