@@ -23,7 +23,7 @@ function displayOrders($con) {
             echo "<div class='accordion-item'>";
             echo "<h2 class='accordion-header'>";
             echo "<button class='accordion-button' type='button' data-bs-toggle='collapse' data-bs-target='#collapse$orderID' aria-expanded='true' aria-controls='collapse$orderID'>";
-            echo "Order ID: $orderID (Total Amount: Php $totalPrice)";
+            echo "<b>Order No: $orderID</b>";
             echo "</button>";
             echo "</h2>";
             echo "<div id='collapse$orderID' class='accordion-collapse collapse' data-bs-parent='#accordion$orderID'>";
@@ -32,10 +32,13 @@ function displayOrders($con) {
             // Table setup for order details
             echo "<table class='table'>";
             echo "<thead>";
+            echo "<tr class='text-center' >";
+            echo "<th colspan='3' class='bg-info text-dark'>Total Amount: Php $totalPrice</th>";
+            echo "</tr>";
             echo "<tr>";
-            echo "<th>Product Name</th>";
-            echo "<th>Quantity</th>";
-            echo "<th>Total</th>";
+            echo "<th class='bg-primary text-white'>Product Name</th>";
+            echo "<th class='bg-success text-white'>Quantity</th>";
+            echo "<th class='bg-warning text-white'>Total</th>";
             echo "</tr>";
             echo "</thead>";
             echo "<tbody>";
