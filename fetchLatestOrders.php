@@ -1,11 +1,11 @@
 <?php
 session_start();
-include "myConnection.php"; // Include your database connection file
+include "myConnection.php"; 
 
 // Function to fetch latest orders
 function fetchLatestOrders($con) {
   // Query to fetch the latest orders
-  $latestOrdersQuery = "SELECT * FROM order_table ORDER BY orderDate DESC LIMIT 5"; // Adjust query to get the desired number of latest orders
+  $latestOrdersQuery = "SELECT * FROM order_table ORDER BY orderDate DESC LIMIT 5"; 
   $result = mysqli_query($con, $latestOrdersQuery);
 
   // Check if there are any orders

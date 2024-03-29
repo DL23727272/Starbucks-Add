@@ -232,6 +232,36 @@
       }
       //end of function for navbarrr
 
+      //UPdate the status pf the order
+
+      function updateStatus(orderID, newStatus) {
+        console.log('Order ID:', orderID);
+          // Send AJAX request to update the status of the order
+          $.ajax({
+              url: 'updateOrderStatus.php',
+              method: 'POST',
+              data: { orderID: orderID, newStatus: newStatus },
+              success: function(response) {
+                  console.log("AJAX response:", response); // Debug statement
+                  // Check if the update was successful
+                  if (response.trim() === 'success') {
+                      // Reload the page to reflect the changes
+                      alertify.success('The order has been updated successfully!');
+
+                  } else {
+                      // gumagana na kaso nag aalert na failed lols debug naten gamit console.log
+                      console.log("Failed to update order status. Response:", response); 
+                      alertify.error('Failed to update order status. Please try again later.');
+                  }
+              },
+              error: function(xhr, status, error) {
+                  // Display an error message if the AJAX request fails
+                  console.error("AJAX request failed:", error); // Debug statement
+                  alertify.error('Failed to update order status. Please try again later.');
+              }
+          });
+      }
+
       $(document).ready(function () {
 
             adminLoadProducts(); 
@@ -305,7 +335,7 @@
               url: 'adminFetchOrders.php',
               success: function(data) { 
                   if (data.trim() === '') {
-                      $('#content').html('<div><p>NO PRODUCTS AVAILABLE</p></div>');
+                      $('#content').html('<div><p>NO ORDERS AVAILABLE</p></div>');
                   } else {
                       $('#content').html(data);
                   }

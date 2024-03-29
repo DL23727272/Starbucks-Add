@@ -4,7 +4,7 @@ session_start();
 //fetch CUSTOMER ORDER COUNT IN CART.HTML
 
 
-include "myConnection.php"; // Include your database connection file
+include "myConnection.php"; 
 
 function countOrders($con) {
     // Check if customerID is set in the GET parameters

@@ -239,7 +239,7 @@
                   method: 'GET',
                   data: { customerID: customerID }, // Pass customerID to the PHP script
                   success: function(response) {
-                      $('#orders').html(response);
+                      $('#orders').html(response); //automatic reload the status
                   },
                   error: function(xhr, status, error) {
                       console.error(error);
@@ -334,6 +334,7 @@
 
         //END ORDER FUNCTION
 
+        //Para ito for displaying ng cart items 
         document.addEventListener("DOMContentLoaded", function () {
             const displayCartItems = () => {
                 var cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
@@ -382,6 +383,7 @@
             displayCartItems();
         });
 
+        //Cancel function on my cart
         function cancelItem(index) {
           alertify.success('Item canceled successfully!');
           // Retrieve the cart items from localStorage

@@ -3,7 +3,7 @@ session_start();
 
 //fetch CUSTOMER ORDERS IN CART.HTML
 
-include "myConnection.php"; // Include your database connection file
+include "myConnection.php"; 
 
 function displayOrders($con) {
 
