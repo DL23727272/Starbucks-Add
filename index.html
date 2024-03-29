@@ -303,7 +303,7 @@
                     // Handle success response
                     if (response.status === 'success') {
                         // Login successful
-                        alertify.success(response.message);
+                        alertify.success(response.message + ' <i class="fa fa-spinner fa-spin"></i>');
                         var customerID = response.customerID;
                         sessionStorage.setItem('customerID', customerID);
                         
