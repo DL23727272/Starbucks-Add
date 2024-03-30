@@ -297,9 +297,8 @@
               data: { orderID: orderID, newStatus: newStatus },
               success: function(response) {
                   console.log("AJAX response:", response); // Debug statement
-                  // Check if the update was successful
+                  
                   if (response.trim() === 'success') {
-                      // Reload the page to reflect the changes
                       alertify.success('The order has been updated successfully!');
 
                   } else {
