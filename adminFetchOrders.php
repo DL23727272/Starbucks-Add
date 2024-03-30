@@ -21,7 +21,7 @@ include "myConnection.php";
                 echo "<div class='accordion-item'>";
                 echo "<h2 class='accordion-header'>";
                 echo "<button class='accordion-button' type='button' data-bs-toggle='collapse' data-bs-target='#collapse$orderID' aria-expanded='true' aria-controls='collapse$orderID'>";
-                echo "Order ID: $orderID | Customer ID: $customerID | Date: $orderDate | Total Price: $totalPrice | Status: ";
+                echo "<b>Order  No. $orderID ‎</b>| Customer ID: $customerID | Date: $orderDate | Total Price: $totalPrice | Status: ";
                 // Dropdown menu for changing order status
                 echo "‎<select class='form-select' style='width: 200px;' onchange='updateStatus($orderID, this.value)'>";
                 echo "<option value='Pending' ".($status == 'Pending' ? 'selected' : '').">Pending</option>";

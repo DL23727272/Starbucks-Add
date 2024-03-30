@@ -26,7 +26,7 @@ function displayOrders($con) {
             echo "<div class='accordion-item'>";
             echo "<h2 class='accordion-header'>";
             echo "<button class='accordion-button' type='button' data-bs-toggle='collapse' data-bs-target='#collapse$orderID' aria-expanded='true' aria-controls='collapse$orderID'>";
-            echo "<b>Order No: $orderID</b>‎ Status: $orderStatus";
+            echo "<b>Order No. $orderID</b>‎ Status: $orderStatus";
             echo "</button>";
             echo "</h2>";
             echo "<div id='collapse$orderID' class='accordion-collapse collapse' data-bs-parent='#accordion$orderID'>";
