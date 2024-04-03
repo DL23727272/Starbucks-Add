@@ -28,26 +28,42 @@ function fetchAccounts($con) {
                             
                             <!-- Modal -->
                             <div class="modal fade" id="staticBackdrop' . $customerID . '" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel' . $customerID . '" aria-hidden="true">
-                              <div class="modal-dialog">
-                                <div class="modal-content">
-                                  <div class="modal-header">
-                                    <h1 class="modal-title fs-5" id="staticBackdropLabel' . $customerID . '">Modal title</h1>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                  </div>
-                                  <div class="modal-body">
-                                  <h5 class="card-title">Customer name: </h5>
-                                  <input value="' . $row['customerName'] . '"></input>
-                                  <p class="card-text">Email: </p>
-                                  <input value="' . $row['customerEmail'] . '"></input>
-                                  </div>
-                                  <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-primary">Understood</button>
-                                  </div>
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="staticBackdropLabel' . $customerID . '">Edit User Information</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form id="editForm' . $customerID . '" action="updateUser.php" method="post">
+                                                <div class="mb-3">
+                                                    <label for="editName' . $customerID . '" class="form-label">Name:</label>
+                                                    <input type="text" class="form-control" id="editName' . $customerID . '" name="editName" value="' . $row['customerName'] . '">
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="editEmail' . $customerID . '" class="form-label">Email:</label>
+                                                    <input type="email" class="form-control" id="editEmail' . $customerID . '" name="editEmail" value="' . $row['customerEmail'] . '">
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="editType' . $customerID . '" class="form-label">User Type:</label>
+                                                    <select class="form-select" id="editType' . $customerID . '" name="editType">
+                                                        <option value="user"' . ($row['type'] === 'user' ? ' selected' : '') . '>User</option>
+                                                        <option value="admin"' . ($row['type'] === 'admin' ? ' selected' : '') . '>Admin</option>
+                                                    </select>
+                                                </div>
+                                                <input type="hidden" name="customerID" value="' . $customerID . '">
+                                            </form>
+                                        </div>
+                                        <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-primary" onclick="updateUser(\'' . $customerID . '\')">Update</button>
+                                    </div>
+                                    </div>
                                 </div>
-                              </div>
                             </div>
-                        <!-- Add more account details here as needed -->
+
+
+                          <!--End modal  Add more account details here as needed -->
                     </div>
                 </div>
             ';
