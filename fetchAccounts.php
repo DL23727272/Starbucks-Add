@@ -3,19 +3,15 @@ session_start();
 include "myConnection.php";
 
   function fetchAccounts($con) {
-      // Query to fetch accounts data from the customer_table
       $accountsQuery = "SELECT * FROM customer_table";
       $result = mysqli_query($con, $accountsQuery);
 
-      // Check if there are any accounts
       if (mysqli_num_rows($result) > 0) {
-          // Start constructing the HTML string for accounts
           $accountHtml = '';
           while ($row = mysqli_fetch_assoc($result)) {
               // Get the customer ID
               $customerID = $row['customerID'];
               
-              // Construct HTML for each account including a modal
               $accountHtml .= '
                   <div class="card my-2">
                       <div class="card-body">
@@ -71,7 +67,7 @@ include "myConnection.php";
               ';
           }
 
-          // Output the constructed HTML for accounts
+          // Output the na gawaang HTML for accounts
           echo $accountHtml;
       } else {
           // Output message if no accounts found
