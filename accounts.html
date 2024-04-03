@@ -272,6 +272,32 @@
       }
       //end of function for navbarrr
 
+      //Status COunt 
+      // AJAX request to fetch order counts from orderStatusCount.php
+      function orderStatus(){
+        $.ajax({
+          url: 'orderStatusCount.php',
+          method: 'GET',
+          success: function(response) {
+              // Parse the JSON response
+              var counts = JSON.parse(response);
+
+              // Update the respective elements with the fetched counts
+              $('#pendingOrderCount').text(counts.pendingCount);
+              $('#processingOrderCount').text(counts.processingCount);
+              $('#completedOrderCount').text(counts.completedCount);
+              $('#cancelledOrderCount').text(counts.cancelledCount);
+          },
+          error: function(xhr, status, error) {
+              console.error(error);
+          }
+        });
+
+      }
+            
+      setInterval(orderStatus, 5000);
+
+
       //Update function
       function updateUser(customerID) {
           var form = $('#editForm' + customerID);
@@ -302,7 +328,7 @@
             $.ajax({
                 url: 'fetchAccounts.php', 
                 method: 'GET',
-                dataType: 'html', // Change dataType to 'html' since PHP file returns HTML
+                dataType: 'html', 
                 success: function(response) {
                     // Append the fetched HTML to the #account element
                     $('#account').html(response);
