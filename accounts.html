@@ -195,7 +195,7 @@
 
       </div>
       <div class="mt-5">
-         <a class="nav-link" data-bs-toggle="modal" data-bs-target="#addProduct"> 
+         <a class="nav-link" data-bs-toggle="modal" data-bs-target="#exampleModal"> 
           <button class="btn btn-outline-success" >Add User</button>
          </a>
       </div>
@@ -271,6 +271,50 @@
         }
       }
       //end of function for navbarrr
+
+      //Signup function
+      function Signup() {
+          // Get form data
+          var customerSignUpEmail = document.getElementById("customerSignUpEmail").value;
+          var customerSignUpName = document.getElementById("customerSignUpName").value;
+          var customerSignUpPassword = document.getElementById("customerSignUpPassword").value;
+      
+          if (customerSignUpName == "" && customerSignUpPassword == "" && customerSignUpEmail == "") {
+            alertify.error('Empty fields! Please fill all the fields.');
+          }else if (customerSignUpName == "") {   
+              alertify.error('Fill up the Username field!');
+          } else if (customerSignUpPassword == "") {
+                alertify.error('Fill up the Password field!');
+          } else if (customerSignUpEmail == "") {
+            alertify.error('Fill up the Email field!');
+          } else {
+            // Send form data to signupProcess.php using AJAX
+            $.ajax({
+                type: "POST",
+                url: "signupProcess.php",
+                data: {
+                    customerSignUpEmail: customerSignUpEmail,
+                    customerSignUpName: customerSignUpName,
+                    customerSignUpPassword: customerSignUpPassword
+                },
+                dataType: "json",
+                success: function (response) {
+                    if (response.status === 'success') {
+                        alertify.success(response.message);
+                        $('#exampleModal').modal('hide');
+                    } else {
+                        alertify.error(response.message);
+                    }
+                },
+                error: function (xhr, status, error) {
+                    // Handle error response
+                    console.error(xhr.responseText);
+                    alertify.error('Failed to sign up!');
+                    // Display error message to the user
+                }
+            });
+          }
+      }
 
       //Status COunt 
       // AJAX request to fetch order counts from orderStatusCount.php
