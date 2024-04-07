@@ -121,7 +121,7 @@
             </li>
             <li class="nav-item">
               <a class="nav-link " href="cart.html">
-                Cart
+                Cart(<span id="cartCount">0</span>)
               </a>
             </li>
           </ul>
@@ -330,7 +330,29 @@
       */
 
 
-        // para sa modal add product
+         // Function to update cart count sa navbar
+        function updateCartCount() {
+            var cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
+            var totalCount = 0;
+            
+            cartItems.forEach(function(item) {
+                totalCount += item.quantity;
+            });
+        
+            // Update the cart count in the HTML
+            document.getElementById('cartCount').innerText = totalCount;
+            
+            // Store the cart count in local storage
+            localStorage.setItem("cartCount", totalCount);
+        }
+
+        function displayCartCount() {
+            var totalCount = localStorage.getItem("cartCount") || 0;
+            document.getElementById('cartCount').innerText = totalCount;
+        }
+
+        displayCartCount();
+        
       //  $(document).ready(function () {
         window.onload = function (){
           $('#modalContainer').load('modal.html');
@@ -413,6 +435,7 @@
                   setTimeout(function () {
                       location.reload();
                   }, 2000);
+                  updateCartCount();
               });
             
             

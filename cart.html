@@ -325,10 +325,16 @@
                           alertify.success(response.message);
                           // Clear the cart after placing the order
                           localStorage.removeItem("cartItems");
-                          // Refresh the page to update the cart display
+                           // Refresh the page to update the cart display
                           setTimeout(function () {
                               location.reload();
-                          }, 1000);
+                          }, 2000);
+                            // Update cartCount to 0
+                          localStorage.setItem("cartCount", 0);
+                          // Update the cart count in the navbar
+                          updateCartCount();
+                         
+                          
                       } else {
                           // Failed to place the order
                           alertify.error(response.message);
@@ -399,27 +405,51 @@
 
         //Cancel function on my cart
         function cancelItem(index) {
-          alertify.success('Item canceled successfully!');
-          // Retrieve the cart items from localStorage
-          var cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
-          setTimeout(function () {
-            location.reload();
-          }, 1000);
 
-          // Check if the index is valid
-          if (index >= 0 && index < cartItems.length) {
-            // Remove the item at the specified index from the array
-            cartItems.splice(index, 1);
-            // Update localStorage with the modified cartItems array
-            localStorage.setItem("cartItems", JSON.stringify(cartItems));
-            // Call the function to refresh the displayed cart items
-            displayCartItems();
-           
-          } else {
-            // Show an error message if the index is out of bounds
-            alertify.error('Invalid index for canceling item!');
+              alertify.success('Item canceled successfully!');
+
+              // Retrieve the cart items from localStorage
+              var cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
+
+              setTimeout(function () {
+                          location.reload();
+              }, 1000);
+
+              // Check if the index is valid
+              if (index >= 0 && index < cartItems.length) {
+                  // Update the cart count by subtracting the quantity of the canceled item
+                  var canceledItemQuantity = cartItems[index].quantity;
+                  var totalCount = parseInt(localStorage.getItem("cartCount")) || 0;
+                  totalCount -= canceledItemQuantity;
+                  localStorage.setItem("cartCount", totalCount);
+          
+                  // Remove the item at the specified index from the array
+                  cartItems.splice(index, 1);
+
+                  // Update localStorage with the modified cartItems array
+                  localStorage.setItem("cartItems", JSON.stringify(cartItems));
+
+                  // Call the function to refresh the displayed cart items
+                  displayCartItems();
+
+                  // Update the cart count in the navbar
+                  updateCartCount();
+
+                  
+                  if (window.location.pathname.includes('home.html')) {
+                      // Retrieve the cartCount element from home.html and update its value
+                      var cartCountElement = document.getElementById('cartCount');
+                      if (cartCountElement) {
+                          cartCountElement.innerText = totalCount;
+                      }
+                  }
+                
+              } else {
+                  // Show an error message if the index is out of bounds
+                  alertify.error('Invalid index for canceling item!');
+              }
           }
-        }
+      
        
        
     </script>

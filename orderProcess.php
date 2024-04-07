@@ -40,7 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['customerID']) && isset
             // Order successfully inserted
             $response = [
                 'status' => 'success',
-                'message' => 'Order placed successfully!',
+                'message' => 'Order placed successfully! <i class="fa fa-spinner fa-spin"></i> ',
                 'orderID' => $orderID
             ];
         } else {
