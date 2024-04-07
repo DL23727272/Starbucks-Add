@@ -1,14 +1,16 @@
 <?php
 include "myConnection.php";
 
-if (isset($_POST['customerSignUpName']) && isset($_POST['customerSignUpPassword']) && isset($_POST['customerSignUpEmail'])) {
+if (isset($_POST['customerSignUpName']) && isset($_POST['customerSignUpPassword']) && isset($_POST['customerSignUpEmail']) && isset($_POST['customerPhoneNumber']) && isset($_POST['customerAddress'])) {
     $username = $_POST["customerSignUpName"];
     $password = $_POST["customerSignUpPassword"];
     $email = $_POST["customerSignUpEmail"];
+    $phoneNumber = $_POST["customerPhoneNumber"]; // New field
+    $address = $_POST["customerAddress"]; // New field
 
     // Perform additional validation if needed
 
-    if ($username == "" || $password == "" || $email == "") {
+    if ($username == "" || $password == "" || $email == "" || $phoneNumber == "" || $address == "") {
         $response = [
             'status' => 'error',
             'message' => 'Empty fields! Please fill all the fields.'
@@ -18,8 +20,8 @@ if (isset($_POST['customerSignUpName']) && isset($_POST['customerSignUpPassword'
         $passwordEncrypt = md5($password);
 
         // Insert user data into the database
-        $query = "INSERT INTO customer_table (customerName, customerPassword, customerEmail)
-                  VALUES ('$username', '$passwordEncrypt', '$email')";
+        $query = "INSERT INTO customer_table (customerName, customerPassword, customerEmail, phoneNumber, address)
+                  VALUES ('$username', '$passwordEncrypt', '$email', '$phoneNumber', '$address')";
 
         if (mysqli_query($con, $query)) {
             $response = [

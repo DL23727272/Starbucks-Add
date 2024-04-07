@@ -339,31 +339,28 @@
     
 
       function Signup() {
-          // Get form data
-          var customerSignUpEmail = document.getElementById("customerSignUpEmail").value;
-          var customerSignUpName = document.getElementById("customerSignUpName").value;
-          var customerSignUpPassword = document.getElementById("customerSignUpPassword").value;
-      
-          if (customerSignUpName == "" && customerSignUpPassword == "" && customerSignUpEmail == "") {
+        // Get form data
+        var customerSignUpEmail = $("#customerSignUpEmail").val();
+        var customerSignUpName = $("#customerSignUpName").val();
+        var customerSignUpPassword = $("#customerSignUpPassword").val();
+        var customerPhoneNumber = $("#customerPhoneNumber").val(); 
+        var customerAddress = $("#customerAddress").val(); 
+
+        if (customerSignUpName === "" || customerSignUpPassword === "" || customerSignUpEmail === "" || customerPhoneNumber === "" || customerAddress === "") {
             alertify.error('Empty fields! Please fill all the fields.');
-          }else if (customerSignUpName == "") {   
-              alertify.error('Fill up the Username field!');
-          } else if (customerSignUpPassword == "") {
-                alertify.error('Fill up the Password field!');
-          } else if (customerSignUpEmail == "") {
-            alertify.error('Fill up the Email field!');
-          } else {
-            // Send form data to signupProcess.php using AJAX
+        } else {
             $.ajax({
                 type: "POST",
                 url: "signupProcess.php",
                 data: {
                     customerSignUpEmail: customerSignUpEmail,
                     customerSignUpName: customerSignUpName,
-                    customerSignUpPassword: customerSignUpPassword
+                    customerSignUpPassword: customerSignUpPassword,
+                    customerPhoneNumber: customerPhoneNumber,
+                    customerAddress: customerAddress
                 },
                 dataType: "json",
-                success: function (response) {
+                success: function(response) {
                     if (response.status === 'success') {
                         alertify.success(response.message);
                         $('#exampleModal').modal('hide');
@@ -371,14 +368,14 @@
                         alertify.error(response.message);
                     }
                 },
-                error: function (xhr, status, error) {
+                error: function(xhr, status, error) {
                     // Handle error response
                     console.error(xhr.responseText);
                     alertify.error('Failed to sign up!');
                     // Display error message to the user
                 }
             });
-          }
+        }
       }
 
        //FOR NOW LOAD PRODUCTS USING ADMINLOADPRODUCTS.PHP 
