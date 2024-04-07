@@ -8,12 +8,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $name = $_POST['editName'];
     $email = $_POST['editEmail'];
     $type = $_POST['editType'];
+    $phoneNumber = isset($_POST['editPhoneNumber']) ? $_POST['editPhoneNumber'] : null;
+    $address = isset($_POST['editAddress']) ? $_POST['editAddress'] : null;
 
-    $updateQuery = "UPDATE customer_table SET customerName = '$name', customerEmail = '$email', type = '$type' WHERE customerID = '$customerID'";
+    $updateQuery = "UPDATE customer_table SET customerName = '$name', customerEmail = '$email', type = '$type'";
+    
+    if ($phoneNumber !== null) {
+        $updateQuery .= ", phoneNumber = '$phoneNumber'";
+    }
+
+    if ($address !== null) {
+        $updateQuery .= ", address = '$address'";
+    }
+
+    $updateQuery .= " WHERE customerID = '$customerID'";
+
     if (mysqli_query($con, $updateQuery)) {
-        echo "User information updated successfully.";
+        echo json_encode(['status' => 'success', 'message' => 'User information updated successfully.']);
     } else {
-        echo "Error: " . mysqli_error($con);
+        echo json_encode(['status' => 'error', 'message' => 'Error: ' . mysqli_error($con)]);
     }
 }
 ?>
