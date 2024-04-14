@@ -15,6 +15,8 @@
     <!-- Alertify sakit sa ulo -->
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/bootstrap.min.css"/>
+    <!-- Sweet -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
     <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
     <link rel="icon" type="image/x-icon" href="/img/logo.ico">
@@ -303,7 +305,14 @@
                       if (response.status === 'success') {
 
                           // if login goods 
-                          alertify.success(response.message + ' <i class="fa fa-spinner fa-spin"></i>');
+                          //alertify.success(response.message + ' <i class="fa fa-spinner fa-spin"></i>');
+                          Swal.fire({
+                            icon: 'success',
+                            title: response.message,
+                            showConfirmButton: false,
+                            timer: 2000 // Adjust the duration as needed
+                          });
+                          
 
                           var customerID = response.customerID;
                           sessionStorage.setItem('customerID', customerID);
@@ -325,7 +334,14 @@
                           }, 2000);
       
                       } else {
-                          alertify.error(response.message);// Display error message 
+                        //  alertify.error(response.message);// Display error message 
+                          Swal.fire({
+                            icon: 'error',
+                            title: response.message,
+                            showConfirmButton: false,
+                            timer: 1500 // Adjust the duration as needed
+                          });
+                          
                       }
                   },
                   error: function(xhr, status, error) {
@@ -362,7 +378,13 @@
                 dataType: "json",
                 success: function(response) {
                     if (response.status === 'success') {
-                        alertify.success(response.message);
+                        //alertify.success(response.message);
+                        Swal.fire({
+                          icon: 'success',
+                          title: response.message,
+                          showConfirmButton: false,
+                          timer: 2000 // Adjust the duration as needed
+                        });
                         $('#exampleModal').modal('hide');
                     } else {
                         alertify.error(response.message);

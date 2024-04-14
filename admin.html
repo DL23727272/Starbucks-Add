@@ -14,6 +14,9 @@
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/bootstrap.min.css"/>
 
+     <!-- Sweet -->
+     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
     <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
     <link rel="icon" type="image/x-icon" href="/img/logo.ico">
     
@@ -303,7 +306,13 @@
                   console.log("AJAX response:", response); // Debug statement
                   
                   if (response.trim() === 'success') {
-                      alertify.success('The order has been updated successfully!');
+                    //  alertify.success('The order has been updated successfully!');
+                    Swal.fire({
+                      icon: 'success',
+                      title: 'The order has been updated successfully!',
+                      showConfirmButton: false,
+                      timer: 2000 
+                    });
 
                   } else {
                       // gumagana na kaso nag aalert na failed lols debug naten gamit console.log
@@ -392,13 +401,25 @@
                         console.log("Response:", response); // check response  from server uo xd
         
                         if (response.trim() === 'Product inserted successfully') {
-                            alertify.success('Product added successfully');
+                          //  alertify.success('Product added successfully');
+                            Swal.fire({
+                              icon: 'success',
+                              title: 'Product added successfully',
+                              showConfirmButton: false,
+                              timer: 2000 
+                            });
                             $('#addProduct').modal('hide');
                             setTimeout(function () {
                                 location.reload();
-                            }, 2000);
+                            }, 3000);
                         } else {
-                            alertify.error('Failed to add product');
+                         //   alertify.error('Failed to add product');
+                            Swal.fire({
+                              icon: 'error',
+                              title: 'Failed to add product',
+                              showConfirmButton: false,
+                              timer: 2000 
+                            });
                             $('#addProductButton').prop('disabled', false).html('Submit');
                         }
                     },

@@ -15,9 +15,13 @@
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/bootstrap.min.css"/>
 
+     <!-- Sweet -->
+     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+     
     <script src="jquery-3.6.1.js"></script>
     <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
 
     <style>
        /* Scrollbar*/
@@ -322,7 +326,13 @@
                       // Handle the response from the server
                       if (response.status === 'success') {
                           // Order placed successfully
-                          alertify.success(response.message);
+                         // alertify.success(response.message);
+                         Swal.fire({
+                          icon: 'success',
+                          title: response.message,
+                          showConfirmButton: false,
+                          timer: 2000 // Adjust the duration as needed
+                        });
                           // Clear the cart after placing the order
                           localStorage.removeItem("cartItems");
                            // Refresh the page to update the cart display
@@ -406,7 +416,14 @@
         //Cancel function on my cart
         function cancelItem(index) {
 
-              alertify.success('Item canceled successfully!');
+            //  alertify.success('Item canceled successfully!');
+            Swal.fire({
+              icon: 'success',
+              title: 'Item canceled successfully!',
+              showConfirmButton: false,
+              timer: 1500 // Adjust the duration as needed
+            });
+            
 
               // Retrieve the cart items from localStorage
               var cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];

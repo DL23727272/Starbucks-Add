@@ -15,6 +15,10 @@
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/bootstrap.min.css"/>
     <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+
+    <!-- Sweet -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
     <link rel="icon" type="image/x-icon" href="/img/logo.ico">
       <!--
         You may not copy, reproduce, distribute, publish, display, perform, modify, create derivative works, transmit, 
@@ -407,8 +411,14 @@
               });
 
               $('#buy').click(function () {
-                  alertify.success('Item added to cart!');
-              
+                  //alertify.success('Item added to cart!');
+                  Swal.fire({
+                    icon: 'success',
+                    title: 'Item added to cart!',
+                    showConfirmButton: false,
+                    timer: 1500 // Adjust the duration as needed
+                  });
+                  
                   var quantity = parseInt($("#quantity").val());
                   var total = productPrice * quantity;
               
