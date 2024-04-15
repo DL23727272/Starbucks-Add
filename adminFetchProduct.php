@@ -25,7 +25,7 @@
         // Increment product count
         $productCount++;
 
-        // Check if 4 products have been printed (to start a new row)
+        // Check if 3 products have been printed (to start a new row)
         if ($productCount % 3 == 0) {
             echo '</div>'; // Close the current row
             echo '<div class="row justify-content-center m-2">'; // Start a new row
@@ -38,26 +38,4 @@
     }
 
 
-    // <button class="btn text-white addtocart" style="background-color: #006341" data-bs-toggle="modal" data-bs-target="#modalProduct"
-    // data-product-id="'. $row['productID'] .'" data-product-name="'. $row['productName'] .'"
-    // data-product-image="'. $row['productImage'] .'" data-product-price="'. $row['productPrice'] .'" data-product-detail="'. $row['productDesc'] .'">Select</button>
-            // <div class="col-sm-3 mt-3">
-			// 		<div class="card h-100">
-			// 			<div class="h-50 d-flex">
-			// 				<img id="image1" class="img-fluid card-img" src="products/'. $row['image'] .'" alt="Frontrow" style="margin:auto;">
-			// 			</div>
-			// 			<div class="card-body">
-			// 				<h4 class="card-title" id="name'. $row['id'] .'">'. $row['productName'] .'</h4>
-			// 				<p class="card-text">
-			// 					<label>Php.</label>
-			// 					<label id="price'. $row['id'] .'">'. $row['productPrice'] .'</label>
-			// 					<label id="unit'. $row['id'] .'" name="'. $row['productUnit'] .'">/'. $row['productUnit'] .'</label>
-			// 				</p>
-			// 				<button type="button" class="btn btn-primary addtocart" id="'. $row['id'] .'">Add to Cart</button>
-			// 			</div>
-			// 		</div>
-			// 	</div>
-           
-    
-         
-          
+   

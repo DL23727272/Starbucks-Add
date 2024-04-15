@@ -1,9 +1,6 @@
 <?php
 session_start();
 
-//fetch CUSTOMER ORDER COUNT IN CART.HTML
-
-
 include "myConnection.php"; 
 
 function countOrders($con) {
@@ -24,7 +21,6 @@ function countOrders($con) {
             // Return the total number of orders
             return $totalOrders;
         } else {
-            // Return an error message if the query fails
             return "Error: Unable to fetch orders.";
         }
     } else {

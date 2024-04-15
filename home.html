@@ -82,15 +82,15 @@
       }
       #mugIcon {
         color: white;
-        transition: color 0.3s ease; /* Smooth transition effect for icon color */
+        transition: color 0.3s ease;
       }
       
       #mugIcon.scrolled {
-        color: #000000; /* Change icon color when scrolled */
+        color: #000000; 
       }
       #fruitimage {
         max-width: 100%;
-        max-height: 300px; /* Adjust the height as needed */
+        max-height: 300px; 
     }
     </style>
   </head>
@@ -300,12 +300,12 @@
             document.getElementById("navbar").classList.add("blurred");
             const navLinks = document.querySelectorAll(".nav-link");
             navLinks.forEach(link => link.classList.add("scrolled"));
-            document.getElementById("mugIcon").classList.add("scrolled"); // Add scrolled class to the icon
+            document.getElementById("mugIcon").classList.add("scrolled"); 
           } else {
             document.getElementById("navbar").classList.remove("blurred");
             const navLinks = document.querySelectorAll(".nav-link");
             navLinks.forEach(link => link.classList.remove("scrolled"));
-            document.getElementById("mugIcon").classList.remove("scrolled"); // Remove scrolled class from the icon
+            document.getElementById("mugIcon").classList.remove("scrolled");
           }
         }
         //end of function for navbarrr
@@ -416,14 +416,14 @@
                     icon: 'success',
                     title: 'Item added to cart!',
                     showConfirmButton: false,
-                    timer: 1500 // Adjust the duration as needed
+                    timer: 1500 
                   });
                   
                   var quantity = parseInt($("#quantity").val());
                   var total = productPrice * quantity;
               
                   var cartItem = {
-                      productId: productId, // Use the productId variable
+                      productId: productId, 
                       productName: productName,
                       productPrice: productPrice,
                       quantity: quantity,
@@ -438,7 +438,6 @@
                   // Clear the quantity after adding to cart
                   $("#quantity").val(0);
               
-                  // Reload the page after a delay (e.g., 2000 milliseconds = 2 seconds)
                   setTimeout(function () {
                       location.reload();
                   }, 2000);

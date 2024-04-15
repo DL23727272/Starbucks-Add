@@ -269,12 +269,12 @@
           document.getElementById("navbar").classList.add("blurred");
           const navLinks = document.querySelectorAll(".nav-link");
           navLinks.forEach(link => link.classList.add("scrolled"));
-          document.getElementById("mugIcon").classList.add("scrolled"); // Add scrolled class to the icon
+          document.getElementById("mugIcon").classList.add("scrolled"); 
         } else {
           document.getElementById("navbar").classList.remove("blurred");
           const navLinks = document.querySelectorAll(".nav-link");
           navLinks.forEach(link => link.classList.remove("scrolled"));
-          document.getElementById("mugIcon").classList.remove("scrolled"); // Remove scrolled class from the icon
+          document.getElementById("mugIcon").classList.remove("scrolled"); 
         }
       }
       //end of function for navbarrr
@@ -310,7 +310,7 @@
                             icon: 'success',
                             title: response.message,
                             showConfirmButton: false,
-                            timer: 2000 // Adjust the duration as needed
+                            timer: 2000 
                           });
                           
 
@@ -339,7 +339,7 @@
                             icon: 'error',
                             title: response.message,
                             showConfirmButton: false,
-                            timer: 1500 // Adjust the duration as needed
+                            timer: 1500 
                           });
                           
                       }
@@ -347,7 +347,6 @@
                   error: function(xhr, status, error) {
                       console.error(xhr.responseText);
                       alertify.error('Failed to log in!');
-                      // Display error message 
                   }
               });
           }
@@ -383,7 +382,7 @@
                           icon: 'success',
                           title: response.message,
                           showConfirmButton: false,
-                          timer: 2000 // Adjust the duration as needed
+                          timer: 2000 
                         });
                         $('#exampleModal').modal('hide');
                     } else {
@@ -394,13 +393,12 @@
                     // Handle error response
                     console.error(xhr.responseText);
                     alertify.error('Failed to sign up!');
-                    // Display error message to the user
                 }
             });
         }
       }
 
-       //FOR NOW LOAD PRODUCTS USING ADMINLOADPRODUCTS.PHP 
+       //FOR NOW LOAD PRODUCTS USING ADMINLOADPRODUCTS.PHP  (updated php file to load prodducts here on index page, diko na pinalitan function name)
        
        adminLoadProducts();
 

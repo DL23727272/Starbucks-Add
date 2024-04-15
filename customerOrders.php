@@ -9,7 +9,6 @@ function displayOrders($con) {
 
     $customerID = $_GET['customerID'];
 
-    // Query to fetch orders for the current customer
     $ordersQuery = "SELECT * FROM order_table WHERE customerID = $customerID";
     $result = mysqli_query($con, $ordersQuery);
     

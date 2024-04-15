@@ -283,12 +283,12 @@
           document.getElementById("navbar").classList.add("blurred");
           const navLinks = document.querySelectorAll(".nav-link");
           navLinks.forEach(link => link.classList.add("scrolled"));
-          document.getElementById("mugIcon").classList.add("scrolled"); // Add scrolled class to the icon
+          document.getElementById("mugIcon").classList.add("scrolled"); 
         } else {
           document.getElementById("navbar").classList.remove("blurred");
           const navLinks = document.querySelectorAll(".nav-link");
           navLinks.forEach(link => link.classList.remove("scrolled"));
-          document.getElementById("mugIcon").classList.remove("scrolled"); // Remove scrolled class from the icon
+          document.getElementById("mugIcon").classList.remove("scrolled"); 
         }
       }
       //end of function for navbarrr
@@ -346,17 +346,15 @@
                 }
             });
 
-            //Status COunt 
-            // AJAX request to fetch order counts from orderStatusCount.php
+            //Status COunt  AJAX request to fetch order counts from orderStatusCount.php
             function orderStatus(){
               $.ajax({
                 url: 'orderStatusCount.php',
                 method: 'GET',
                 success: function(response) {
-                    // Parse the JSON response
+                    // Parse the JSON response 
                     var counts = JSON.parse(response);
   
-                    // Update the respective elements with the fetched counts
                     $('#pendingOrderCount').text(counts.pendingCount);
                     $('#processingOrderCount').text(counts.processingCount);
                     $('#completedOrderCount').text(counts.completedCount);

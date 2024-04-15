@@ -375,7 +375,6 @@
                       location.reload();
                   }, 3000);
                   
-                  // Reload the page or update the UI as needed
               },
               error: function(xhr, status, error) {
                   // Handle error
@@ -391,11 +390,9 @@
                 method: 'GET',
                 dataType: 'html', 
                 success: function(response) {
-                    // Append the fetched HTML to the #account element
                     $('#account').html(response);
                 },
                 error: function(xhr, status, error) {
-                    // Handle errors if any
                     console.error('Error fetching accounts:', error);
                     $('#account').html('<p>Error fetching accounts. Please try again later.</p>');
                 }

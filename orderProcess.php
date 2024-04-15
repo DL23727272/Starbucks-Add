@@ -10,7 +10,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['customerID']) && isset
     $customerResult = mysqli_query($con, $customerCheckQuery);
 
     if (mysqli_num_rows($customerResult) == 1) {
-        // CustomerID is valid, proceed with order processing
+        
+        // if CustomerID is valid, proceed with order processing
         $totalPrice = 0;
 
         // Calculate total price

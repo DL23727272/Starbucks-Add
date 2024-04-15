@@ -243,6 +243,7 @@
                 data: { customerID: customerID },
                 success: function(response) {
                     $('#orders').html(response);
+
                     // Reload the orders section periodically
                     setInterval(function () {
                         $.ajax({
@@ -331,7 +332,7 @@
                           icon: 'success',
                           title: response.message,
                           showConfirmButton: false,
-                          timer: 2000 // Adjust the duration as needed
+                          timer: 2000 
                         });
                           // Clear the cart after placing the order
                           localStorage.removeItem("cartItems");
@@ -379,7 +380,8 @@
 
                 // Iterate sa each cart item and append to the table
                 cartItems.forEach(function (item, index) {
-                    // Handle null or undefined total values
+
+                    // Handle null or undefined total valuess
                     var total = item.total || 0;
 
                     if (cartItems.length === 0) {

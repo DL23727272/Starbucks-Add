@@ -5,10 +5,9 @@ if (isset($_POST['customerSignUpName']) && isset($_POST['customerSignUpPassword'
     $username = $_POST["customerSignUpName"];
     $password = $_POST["customerSignUpPassword"];
     $email = $_POST["customerSignUpEmail"];
-    $phoneNumber = $_POST["customerPhoneNumber"]; // New field
-    $address = $_POST["customerAddress"]; // New field
+    $phoneNumber = $_POST["customerPhoneNumber"]; // New field requested by sir
+    $address = $_POST["customerAddress"]; // New field requested by sir
 
-    // Perform additional validation if needed
 
     if ($username == "" || $password == "" || $email == "" || $phoneNumber == "" || $address == "") {
         $response = [
@@ -16,7 +15,7 @@ if (isset($_POST['customerSignUpName']) && isset($_POST['customerSignUpPassword'
             'message' => 'Empty fields! Please fill all the fields.'
         ];
     } else {
-        // Hash the password (consider using stronger hashing algorithms like bcrypt)
+        // Hash the password 
         $passwordEncrypt = md5($password);
 
         // Insert user data into the database

@@ -34,7 +34,7 @@ include "myConnection.php";
                 echo "<div id='collapse$orderID' class='accordion-collapse collapse' data-bs-parent='#accordion$orderID'>";
                 echo "<div class='accordion-body'>";
                 
-                // Query to fetch order items for the current orderID
+                // Query to fetch order items for the current orderID backend gods
                 $orderItemsQuery = "SELECT oi.quantity, oi.subtotal, p.productName 
                                     FROM order_items_table oi
                                     INNER JOIN product_table p ON oi.productID = p.productID

@@ -9,9 +9,9 @@ include "myConnection.php";
         $result = mysqli_query($con, $updateQuery);
 
         if ($result) {
-            echo "success"; // Output a simple success message
+            echo "success"; 
         } else {
-            echo "error"; // Output an error message if the update fails
+            echo "error"; 
         }
     }
 
