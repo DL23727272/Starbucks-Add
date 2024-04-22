@@ -360,7 +360,14 @@
         var customerSignUpPassword = $("#customerSignUpPassword").val();
         var customerPhoneNumber = $("#customerPhoneNumber").val(); 
         var customerAddress = $("#customerAddress").val(); 
+        var checkSignUpPassword = $("#checkSignUpPassword").val();
 
+        //check the password if matched
+        if (customerSignUpPassword !== checkSignUpPassword) {
+            alertify.error('Passwords do not match!');
+            return; 
+        }
+  
         if (customerSignUpName === "" || customerSignUpPassword === "" || customerSignUpEmail === "" || customerPhoneNumber === "" || customerAddress === "") {
             alertify.error('Empty fields! Please fill all the fields.');
         } else {
