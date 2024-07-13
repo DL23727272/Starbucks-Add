@@ -2,15 +2,16 @@
 session_start();
 include 'myConnection.php';
 
-function fetchProducts($con) {
-    $sql = "SELECT * FROM product_table";
-    $result = mysqli_query($con, $sql);
+// Function to fetch products by type
+function fetchProductsByType($con, $productType) {
+    $sql = "SELECT * FROM product_table WHERE productType = ?";
+    $stmt = mysqli_prepare($con, $sql);
+    mysqli_stmt_bind_param($stmt, "s", $productType);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
 
     if (mysqli_num_rows($result) > 0) {
         $productHtml = '';
-        $productCount = 0;
-
-        $productHtml .= '<div class="row justify-content-center m-2">';
         
         while ($row = mysqli_fetch_assoc($result)) {
             $productID = $row['productID'];
@@ -31,7 +32,10 @@ function fetchProducts($con) {
                         <button type="button" class="btn btn-danger" onclick="confirmDelete('. $productID .')">Delete</button>
                     </div>
                 </div>
+            ';
 
+            // Add the modal for each product
+            $productHtml .= '
                 <!-- Edit Modal -->
                 <div class="modal fade" id="editModal'. $productID .'" tabindex="-1" aria-labelledby="editModalLabel'. $productID .'" aria-hidden="true">
                     <div class="modal-dialog">
@@ -59,6 +63,15 @@ function fetchProducts($con) {
                                         <label for="productImage'. $productID .'" class="form-label">Product Image:</label>
                                         <input type="file" class="form-control" id="productImage'. $productID .'" name="productImage">
                                     </div>
+                                    <div class="input-group mb-3">
+                                        <label class="input-group-text" for="productType'. $productID .'">Product Type:</label>
+                                        <select class="form-select" id="productType'. $productID .'" name="productType" required>
+                                            <option value="food" '. ($row['productType'] == "food" ? "selected" : "") .'>Food</option>
+                                            <option value="drink" '. ($row['productType'] == "drink" ? "selected" : "") .'>Drink</option>
+                                            <option value="dessert" '. ($row['productType'] == "dessert" ? "selected" : "") .'>Dessert</option>
+                                        </select>
+                                    </div>
+
                                     <button type="button" class="btn btn-primary mt-3" onclick="updateProduct('. $productID .')">Update</button>
                                 </form>
                             </div>
@@ -67,23 +80,23 @@ function fetchProducts($con) {
                 </div>
                 <!-- End Modal -->
             ';
-
-            $productCount++;
-
-            if ($productCount % 3 == 0) {
-                $productHtml .= '</div><div class="row justify-content-center m-2">';
-            }
-        }
-
-        if ($productCount % 3 != 0) {
-            $productHtml .= '</div>';
         }
 
         echo $productHtml;
     } else {
-        echo "No products found.";
+        echo "No products found."; // Echo this if no products are found
     }
 }
 
-fetchProducts($con);
+// Handle AJAX request
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (isset($_POST['productType'])) {
+        $productType = $_POST['productType'];
+        fetchProductsByType($con, $productType);
+    } else {
+        echo "Product type parameter is missing."; // Echo this if productType parameter is missing
+    }
+} else {
+    echo "Invalid request method."; // Echo this if request method is not POST
+}
 ?>

@@ -15,13 +15,14 @@ include "myConnection.php";
                 $orderDate = $row['orderDate'];
                 $totalPrice = $row['totalPrice'];
                 $status = $row['status'];
+                $paymentStatus = $row['paymentStatus'];
 
                 // Output HTML for each order
                 echo "<div class='accordion mt-4' id='accordion$orderID' style='width: 100%;'>";
                 echo "<div class='accordion-item'>";
                 echo "<h2 class='accordion-header'>";
                 echo "<button class='accordion-button' type='button' data-bs-toggle='collapse' data-bs-target='#collapse$orderID' aria-expanded='true' aria-controls='collapse$orderID'>";
-                echo "<b>Order  No. $orderID ‎</b>| Customer ID: $customerID | Date: $orderDate | Total Price: $totalPrice | Status: ";
+                echo "<b>Order  No. $orderID ‎</b>| Customer ID: $customerID | Payment: $paymentStatus | Total Price: $totalPrice | Status: ";
                 // Dropdown menu for changing order status
                 echo "‎<select class='form-select' style='width: 200px;' onchange='updateStatus($orderID, this.value)'>";
                 echo "<option value='Pending' ".($status == 'Pending' ? 'selected' : '').">Pending</option>";

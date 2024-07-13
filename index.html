@@ -210,18 +210,51 @@
       <!-- End Hero-->
 
       <hr class="container-sm Sborder border-success mt-5 border-2 opacity-50" />
-      <!-- PRODUCT CONTENT -->
+
+      <!-- COFFEE CONTENT -->
       <section class="mt-5">
         <div class="container-sm">
-
           <div class="row justify-content-center">
             <div class="col-12 text-center">
-              <h1 class="fst-italic">Our Products</h1>
+              <h1 class="fst-italic">Our Coffee</h1>
             </div>
           </div>
-
-          <div class=" w-100" id="products"></div>
-          <!-- THE PRODUCTS WILL SHOW HERE -->
+          <div class="row justify-content-center" id="drink">
+            <?php fetchProductsByType($con, 'drink'); ?>
+          </div>
+        </div>
+      </section>
+      <!-- END COFFEE CONTENT -->
+  
+      <hr class="container-sm Sborder border-success mt-5 border-2 opacity-50" />
+  
+      <!-- FOOD CONTENT -->
+      <section class="mt-5">
+        <div class="container-sm">
+          <div class="row justify-content-center">
+            <div class="col-12 text-center">
+              <h1 class="fst-italic">Our Food</h1>
+            </div>
+          </div>
+          <div class="row justify-content-center" id="food">
+            <?php fetchProductsByType($con, 'food'); ?>
+          </div>
+        </div>
+      </section>
+      <!-- END FOOD CONTENT -->
+  
+      <hr class="container-sm Sborder border-success mt-5 border-2 opacity-50" />
+  
+      <!-- DESSERTS CONTENT -->
+      <section class="mt-5">
+        <div class="container-sm">
+          <div class="row justify-content-center">
+            <div class="col-12 text-center">
+              <h1 class="fst-italic">Our Desserts</h1>
+            </div>
+          </div>
+          <div class="row justify-content-center" id="dessert">
+            <?php fetchProductsByType($con, 'dessert'); ?>
           </div>
         </div>
       </section>
@@ -411,25 +444,39 @@
         }
       }
 
-       //FOR NOW LOAD PRODUCTS USING ADMINLOADPRODUCTS.PHP  (updated php file to load prodducts here on index page, diko na pinalitan function name)
-       
-       adminLoadProducts();
-
-      function adminLoadProducts() { 
+       //FOR NOW LOAD PRODUCTS USING indexFetchProduct.PHP  (updated php file to load prodducts here on index page, diko na pinalitan function name)
+      function adminLoadProducts(productType, targetElementId) {
         $.ajax({
             url: 'indexFetchProduct.php',
-            success: function (data) { 
+            method: 'POST', 
+            data: { productType: productType },
+            success: function (data) {
                 if (data.trim() === '') {
-                    $('#products').append('<div><p>NO PRODUCTS AVAILABLE</p></div>');
+                    $('#' + targetElementId).append('<div><p>No products available.</p></div>');
                 } else {
-                    $('#products').append(data);
+                    $('#' + targetElementId).append(data);
                 }
             },
             error: function () {
-                $('#products').append('<div><p>Error loading products. Please try again later.</p></div>');
+                $('#' + targetElementId).append('<div><p>Error loading products. Please try again later.</p></div>');
             }
         });
       }
+
+      // Load Coffee products
+      $(document).ready(function () {
+        adminLoadProducts('drink', 'drink');
+      });
+
+      // Load Food products
+      $(document).ready(function () {
+        adminLoadProducts('food', 'food');
+      });
+
+      // Load Desserts products
+      $(document).ready(function () {
+        adminLoadProducts('dessert', 'dessert');
+      });
     </script>
 </body>
 </html>

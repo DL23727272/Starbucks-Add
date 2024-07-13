@@ -216,36 +216,70 @@
     </div>
     
     <!-- End of Dashboard for now -->
+ <!-- ORDER CONTENT -->
+ <section class="">
+  <div class="container-sm">
+    
+    <div id="content">
 
+    </div>
+  </div>
+</section>
+<!-- END OF ORDER CONTENT -->
     <hr class="container-sm Sborder border-success mt-5 border-2 opacity-50" />
 
-    <!-- ORDER CONTENT -->
-    <section class="">
-      <div class="container-sm">
-        
-        <div id="content">
 
-        </div>
-      </div>
-    </section>
-    <!-- END OF ORDER CONTENT -->
 
-    <hr class="container-sm Sborder border-success mt-5 border-2 opacity-50" />
 
-    <!-- PRODUCT CONTENT -->
+    <!-- COFFEE CONTENT -->
     <section class="mt-5">
       <div class="container-sm">
         <div class="row justify-content-center">
           <div class="col-12 text-center">
-            <h1 class="fst-italic">Our Products</h1>
+            <h1 class="fst-italic">Our Coffee</h1>
           </div>
         </div>
-        <div class=" w-100" id="products"></div>
-         <!-- THE PRODUCTS WILL SHOW HERE -->
+        <div class="row justify-content-center" id="drink">
+          <?php fetchProductsByType($con, 'drink'); ?>
         </div>
       </div>
     </section>
-    <!-- END PRODUCT CONTENT -->
+    <!-- END COFFEE CONTENT -->
+
+    <hr class="container-sm Sborder border-success mt-5 border-2 opacity-50" />
+
+    <!-- FOOD CONTENT -->
+    <section class="mt-5">
+      <div class="container-sm">
+        <div class="row justify-content-center">
+          <div class="col-12 text-center">
+            <h1 class="fst-italic">Our Food</h1>
+          </div>
+        </div>
+        <div class="row justify-content-center" id="food">
+          <?php fetchProductsByType($con, 'food'); ?>
+        </div>
+      </div>
+    </section>
+    <!-- END FOOD CONTENT -->
+
+    <hr class="container-sm Sborder border-success mt-5 border-2 opacity-50" />
+
+    <!-- DESSERTS CONTENT -->
+    <section class="mt-5">
+      <div class="container-sm">
+        <div class="row justify-content-center">
+          <div class="col-12 text-center">
+            <h1 class="fst-italic">Our Desserts</h1>
+          </div>
+        </div>
+        <div class="row justify-content-center" id="dessert">
+          <?php fetchProductsByType($con, 'dessert'); ?>
+        </div>
+      </div>
+    </section>
+    <!-- END DESSERTS CONTENT -->
+
 
 
      <!---Footer-->
@@ -392,6 +426,7 @@
                 formData.append('productPrice', $('#productPrice').val());
                 formData.append('productDescription', $('#productDescription').val());
                 formData.append('image', $('#productImageName')[0].files[0]);
+                formData.append('productType', $('#productType').val());
         
                 console.log("Form data:", formData); // Debug pppppppta ayaw mag function yung button
         
@@ -464,22 +499,39 @@
     
       
       //LOAD PRODUCTS USING ADMINLOADPRODUCTS.PHP      
-      function adminLoadProducts() { 
-          $.ajax({
-              url: 'adminFetchProduct.php',
-              success: function (data) { 
-                  if (data.trim() === '') {
-                      $('#products').append('<div><p>NO PRODUCTS AVAILABLE</p></div>');
-                  } else {
-                      $('#products').append(data);
-                  }
-              },
-              error: function () {
-                  $('#products').append('<div><p>Error loading products. Please try again later.</p></div>');
-              }
-          });
+      function adminLoadProducts(productType, targetElementId) {
+        $.ajax({
+            url: 'adminFetchProduct.php',
+            method: 'POST', // Assuming you want to send POST data to fetch by product type
+            data: { productType: productType },
+            success: function (data) {
+                if (data.trim() === '') {
+                    $('#' + targetElementId).append('<div><p>No products available.</p></div>');
+                } else {
+                    $('#' + targetElementId).append(data);
+                }
+            },
+            error: function () {
+                $('#' + targetElementId).append('<div><p>Error loading products. Please try again later.</p></div>');
+            }
+        });
       }
-      
+
+      // Load Coffee products
+      $(document).ready(function () {
+        adminLoadProducts('drink', 'drink');
+      });
+
+      // Load Food products
+      $(document).ready(function () {
+        adminLoadProducts('food', 'food');
+      });
+
+      // Load Desserts products
+      $(document).ready(function () {
+        adminLoadProducts('dessert', 'dessert');
+      });
+
       function updateProduct(productID) {
         var formData = new FormData(document.getElementById('editForm' + productID));
 

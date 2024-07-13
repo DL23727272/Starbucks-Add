@@ -247,27 +247,61 @@
           lattes to seasonal favorites, there's something for every palate. Join
           us at Starbucks and let's make every sip count.
         </p>
-        <!-- <a class="nav-link" data-bs-toggle="modal" data-bs-target="#addProduct"> 
-        <button class="btn btn-outline-success" >Add Product</button>
-        </a> -->
+     
       </div>
     </section>
     <!-- End Hero-->
 
     <hr class="container-sm Sborder border-success mt-5 border-2 opacity-50" />
 
-    <section class="mt-5">
-      <div class="container-sm">
-        <div class="row justify-content-center">
-          <div class="col-12 text-center">
-            <h1 class="fst-italic">Our Products</h1>
+       <!-- COFFEE CONTENT -->
+       <section class="mt-5">
+        <div class="container-sm">
+          <div class="row justify-content-center">
+            <div class="col-12 text-center">
+              <h1 class="fst-italic">Our Coffee</h1>
+            </div>
+          </div>
+          <div class="row justify-content-center" id="drink">
+            <?php fetchProductsByType($con, 'drink'); ?>
           </div>
         </div>
-        <div class=" w-100" id="content">
-          
+      </section>
+      <!-- END COFFEE CONTENT -->
+  
+      <hr class="container-sm Sborder border-success mt-5 border-2 opacity-50" />
+  
+      <!-- FOOD CONTENT -->
+      <section class="mt-5">
+        <div class="container-sm">
+          <div class="row justify-content-center">
+            <div class="col-12 text-center">
+              <h1 class="fst-italic">Our Food</h1>
+            </div>
+          </div>
+          <div class="row justify-content-center" id="food">
+            <?php fetchProductsByType($con, 'food'); ?>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+      <!-- END FOOD CONTENT -->
+  
+      <hr class="container-sm Sborder border-success mt-5 border-2 opacity-50" />
+  
+      <!-- DESSERTS CONTENT -->
+      <section class="mt-5">
+        <div class="container-sm">
+          <div class="row justify-content-center">
+            <div class="col-12 text-center">
+              <h1 class="fst-italic">Our Desserts</h1>
+            </div>
+          </div>
+          <div class="row justify-content-center" id="dessert">
+            <?php fetchProductsByType($con, 'dessert'); ?>
+          </div>
+        </div>
+      </section>
+      <!-- END DESSERTS CONTENT -->
     
     
     <!---Footer-->
@@ -330,17 +364,6 @@
         alertify.set('notifier', 'delay', 5);
         
 
-     /*   document.addEventListener("DOMContentLoaded", function() {
-            var customerID = sessionStorage.getItem('customerID');
-        
-            if (customerID) {
-              document.getElementById('customerID').innerText = 'Customer ID: ' + customerID;
-            } else {
-                console.log('Customer ID not found in sessionStorage'); 
-            }
-        });
-      */
-
 
          // Function to update cart count sa navbar
         function updateCartCount() {
@@ -377,6 +400,7 @@
               var productImage = $(this).data("product-image");
               var productDetail = $(this).data("product-detail");
               var productPrice = $(this).data("product-price");
+              var productType = $(this).data("product-type");
 
               //ayaw magpakita yung picture sa modal 
               console.log("Product Image URL:", productImage);
@@ -385,11 +409,12 @@
               console.log("Product Image:", productImage);
               console.log("Product Detail:", productDetail);
               console.log("Product Price:", productPrice);
+              console.log("Product Type:", productType);
               
               $("#modalProduct #fruitname").text(productName);
               $("#modalProduct #fruitprice").text("Php " + productPrice);
               $("#modalProduct #fruitdetail").text(productDetail);
-              $("#modalProduct #fruitimage").attr("src", "/3rdyr/starbuckz/products/" + productImage); //kelangan pala yunf directory lols my ghad sayang 30 mins
+              $("#modalProduct #fruitimage").attr("src", "/3rdyr/hendrick/products/" + productImage); //Palitan niyo para magpakita yung image
 
               //FUnction for Increment Button on MOdal product
               $("#increment").click(function () {
@@ -471,23 +496,38 @@
 
          
             
-        function loadProducts() { 
-            $.ajax({
-                url: 'fetchProduct.php',
-                success: function (data) { 
-                    if (data.trim() === '') {
-                        $('#content').append('<div><p>NO PRODUCTS AVAILABLE</p></div>');
-                    } else {
-                        $('#content').append(data);
-                    }
-                },
-                error: function () {
-                    $('#content').append('<div><p>Error loading products. Please try again later.</p></div>');
-                }
-            });
+        function adminLoadProducts(productType, targetElementId) {
+          $.ajax({
+              url: 'fetchProduct.php',
+              method: 'POST', 
+              data: { productType: productType },
+              success: function (data) {
+                  if (data.trim() === '') {
+                      $('#' + targetElementId).append('<div><p>No products available.</p></div>');
+                  } else {
+                      $('#' + targetElementId).append(data);
+                  }
+              },
+              error: function () {
+                  $('#' + targetElementId).append('<div><p>Error loading products. Please try again later.</p></div>');
+              }
+          });
         }
-        
-        loadProducts();
+  
+        // Load Coffee products
+        $(document).ready(function () {
+          adminLoadProducts('drink', 'drink');
+        });
+  
+        // Load Food products
+        $(document).ready(function () {
+          adminLoadProducts('food', 'food');
+        });
+  
+        // Load Desserts products
+        $(document).ready(function () {
+          adminLoadProducts('dessert', 'dessert');
+        });
   
       </script>
   </body>

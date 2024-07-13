@@ -317,63 +317,142 @@
             }
         });
 
-         // Function to place an order
-        function placeOrder() {
-          var customerID = sessionStorage.getItem('customerID');
-          var cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
+          // Function to place an order
+          function placeOrder() {
+            var customerID = sessionStorage.getItem('customerID');
+            var cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
+            var paymentMethod;
 
-          if (customerID && cartItems.length > 0) {
-              // Prepare the order data
-              var orderData = {
-                  customerID: customerID,
-                  items: JSON.stringify(cartItems) // Convert items array to JSON string
-              };
-              console.log(orderData);
-              // Send the order data to orderProcess.php using AJAX
-              $.ajax({
-                  type: "POST",
-                  url: "orderProcess.php",
-                  data: orderData,
-                  dataType: "json",
-                  success: function (response) {
-                      // Handle the response from the server
-                      if (response.status === 'success') {
-                          // Order placed successfully
-                         // alertify.success(response.message);
-                         Swal.fire({
-                          icon: 'success',
-                          title: response.message,
-                          showConfirmButton: false,
-                          timer: 2000 
-                        });
-                          // Clear the cart after placing the order
-                          localStorage.removeItem("cartItems");
-                           // Refresh the page to update the cart display
-                          setTimeout(function () {
-                              location.reload();
-                          }, 2000);
-                            // Update cartCount to 0
-                          localStorage.setItem("cartCount", 0);
-                          // Update the cart count in the navbar
-                          updateCartCount();
-                         
-                          
-                      } else {
-                          // Failed to place the order
-                          alertify.error(response.message);
-                      }
-                  },
-                  error: function (xhr, status, error) {
-                      // Handle AJAX errors
-                      console.error(xhr.responseText);
-                      alertify.error('Failed to place order. Please try again later.');
-                  }
-              });
-          } else {
-              // Show an error message if customerID is missing or cart is empty
-              alertify.error('Please Login or Cart is empty!');
+            if (customerID && cartItems.length > 0) {
+                var orderData = {
+                    customerID: customerID,
+                    items: JSON.stringify(cartItems), 
+                    paymentMethod: paymentMethod 
+                };
+
+                // Show modal to select payment method
+                Swal.fire({
+                    title: 'Select Payment Method',
+                    html: `
+                        <select id="paymentMethod" name="paymentMethod" class="form-control">
+                            <option value="cash">Cash</option>
+                            <option value="gcash">GCash</option>
+                        </select>
+                    `,
+                    showCancelButton: true,
+                    confirmButtonText: 'Proceed',
+                    preConfirm: () => {
+                        return document.getElementById('paymentMethod').value;
+                    }
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        paymentMethod = result.value; 
+                        orderData.paymentMethod = paymentMethod; 
+
+                        // Debugging: Log paymentMethod and orderData
+                        console.log("Payment Method:", paymentMethod);
+                        console.log("Order Data:", orderData); 
+
+                        if (paymentMethod === 'cash') {
+                            Swal.fire({
+                                icon: 'info',
+                                title: 'Please pay at the counter',
+                                showConfirmButton: false,
+                                timer: 2000
+                            }).then(() => {
+                                processOrder(orderData); 
+                            });
+                        } else if (paymentMethod === 'gcash') {
+                            handleGCashPayment(orderData); 
+                        }
+                    }
+                });
+            } else {
+                alert('Please log in or add items to your cart.');
+            }
           }
-        }
+
+          // Function to handle GCash payment
+          function handleGCashPayment(orderData) {
+            Swal.fire({
+                title: 'GCash Payment',
+                html: `
+                    <div>
+                        <img src="./img/DL.png" style="width: 200px; height: 200px;" alt="GCash QR Code">
+                        <br><br>
+                        <button id="paidButton" class="btn btn-success">Paid</button>
+                        <button id="backButton" class="btn btn-secondary ms-2">Back to Selection</button>
+                    </div>
+                `,
+                showCloseButton: true,
+                showConfirmButton: false,
+                allowOutsideClick: false 
+            }).then((result) => {
+                if (result.dismiss === Swal.DismissReason.close) {
+                    // Handle case where modal is closed by the X button
+                    console.log('GCash modal closed by X button');
+                } else if (result.dismiss === Swal.DismissReason.backdrop) {
+                    // Handle case where modal is closed by clicking outside
+                    console.log('GCash modal closed by clicking outside');
+                }
+            });
+
+            // Handle "Paid" button click
+            $(document).on('click', '#paidButton', function() {
+                orderData.paymentStatus = 'Paid - MOP: Gcash'; 
+                processOrder(orderData); 
+                Swal.close(); 
+            });
+
+            // Handle "Back to Selection" button click
+            $(document).on('click', '#backButton', function() {
+                Swal.close();
+                placeOrder(); 
+            });
+          }
+
+          // Function to process order
+          function processOrder(orderData) {
+            // Ajax call to orderProcess.php
+            $.ajax({
+                type: "POST",
+                url: "orderProcess.php",
+                data: orderData, // Send orderData including paymentMethod
+                dataType: "json",
+                success: function(response) {
+                    if (response.status === 'success') {
+                        Swal.fire({
+                            icon: 'success',
+                            title: response.message,
+                            showConfirmButton: false,
+                            timer: 2000
+                        }).then(() => {
+                            location.reload(); // Reload the page after successful order
+                            localStorage.removeItem("cartItems");
+                            localStorage.setItem("cartCount", 0);
+                            updateCartCount(); // Update cart count if necessary
+                        });
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Failed to place order. Please try again later.',
+                        });
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error(xhr.responseText);
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Failed to place order. Please try again later.',
+                    });
+                }
+            });
+          }
+
+
+
 
         //END ORDER FUNCTION
 
