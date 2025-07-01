@@ -1,7 +1,8 @@
 <?php
 session_start();
 
-include "myConnection.php"; 
+
+include "../backend/myConnection.php";
 
 function countOrders($con) {
     // Check if customerID is set in the GET parameters

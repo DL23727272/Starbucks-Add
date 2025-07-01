@@ -1,5 +1,6 @@
 <?php
-include "myConnection.php";
+
+include "../backend/myConnection.php";
 
 $countsQuery = "SELECT 
                     SUM(CASE WHEN status = 'Pending' THEN 1 ELSE 0 END) AS pendingCount,

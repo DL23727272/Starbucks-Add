@@ -1,6 +1,7 @@
 <?php
 session_start();
-include 'myConnection.php';
+
+include "../backend/myConnection.php";
 
 // Function to fetch products by type
 function fetchProductsByType($con, $productType) {

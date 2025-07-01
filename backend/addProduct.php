@@ -1,24 +1,25 @@
 <?php
 
-include 'myConnection.php';
+include "../backend/myConnection.php";
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $productName = $_POST['productName'];
     $productDescription = $_POST['productDescription'];
     $productPrice = $_POST['productPrice'];
-    $productType = $_POST['productType']; 
-    
-    $image = $_FILES['image']['name'];
-    $extension = explode('.', $image);
+    $productType = $_POST['productType'];
+
+    $image = basename($_FILES['image']['name']);
+    $extension = pathinfo($image, PATHINFO_EXTENSION);
     $rand = rand(10000, 99999);
-    $newImageName = $extension[0] . $rand . '.' . $extension[1];
-    $uploadPath = "products\\" . $newImageName;
+    $newImageName = pathinfo($image, PATHINFO_FILENAME) . $rand . '.' . $extension;
+
+    $uploadPath = "../products/" . $newImageName;
     $isUploaded = move_uploaded_file($_FILES["image"]["tmp_name"], $uploadPath);
 
     if ($isUploaded) {
         $sql = "INSERT INTO product_table (productName, productDesc, productPrice, productImage, productType) 
                 VALUES ('$productName', '$productDescription', '$productPrice', '$newImageName', '$productType')";
-        
+
         $query = mysqli_query($con, $sql);
 
         if ($query === true) {

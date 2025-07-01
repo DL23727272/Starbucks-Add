@@ -1,6 +1,7 @@
 <?php
 
-include 'myConnection.php';
+
+include "../backend/myConnection.php";
 
 $query = "SELECT COUNT(*) AS product_count FROM product_table";
 $result = mysqli_query($con, $query);

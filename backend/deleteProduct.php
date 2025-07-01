@@ -17,7 +17,8 @@ if(isset($_POST['id'])) {
 
 
 //updated to delete product
-include 'myConnection.php';
+
+include "../backend/myConnection.php";
 
 if(isset($_POST['id'])) {
     $productID = $_POST['id'];

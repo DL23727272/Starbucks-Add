@@ -1,5 +1,6 @@
 <?php
-include "myConnection.php";
+
+include "../backend/myConnection.php";
 
 // Function to sanitize input data
 function sanitize($data) {

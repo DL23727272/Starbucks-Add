@@ -1,5 +1,6 @@
 <?php
-include 'myConnection.php';
+
+include "../backend/myConnection.php";
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $productID = $_POST['productID'];
@@ -10,7 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $productImage = $_FILES['productImage']['name'];
 
     if ($productImage) {
-        $target = "products/" . basename($productImage);
+        $target = "../products/" . basename($productImage);
         move_uploaded_file($_FILES['productImage']['tmp_name'], $target);
         $sql = "UPDATE product_table SET productName = '$productName', productDesc = '$productDesc', productPrice = '$productPrice', productImage = '$productImage', productType = '$productType' WHERE productID = $productID";
     } else {

@@ -3,7 +3,8 @@ session_start();
 
 //fetch CUSTOMER ORDERS IN CART.HTML
 
-include "myConnection.php"; 
+
+include "../backend/myConnection.php";
 
 function displayOrders($con) {
 

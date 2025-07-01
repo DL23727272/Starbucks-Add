@@ -1,6 +1,7 @@
 <?php
 session_start();
-include "myConnection.php"; 
+
+include "../backend/myConnection.php";
 
     // Function to update order status
     function updateOrderStatus($con, $orderID, $newStatus) {

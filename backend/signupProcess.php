@@ -1,5 +1,6 @@
 <?php
-include "myConnection.php";
+
+include "../backend/myConnection.php";
 
 if (isset($_POST['customerSignUpName']) && isset($_POST['customerSignUpPassword']) && isset($_POST['customerSignUpEmail']) && isset($_POST['customerPhoneNumber']) && isset($_POST['customerAddress'])) {
     $username = $_POST["customerSignUpName"];

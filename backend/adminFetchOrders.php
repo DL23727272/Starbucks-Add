@@ -1,6 +1,7 @@
 <?php
 session_start();
-include "myConnection.php"; 
+
+include "../backend/myConnection.php";
 
     function displayOrders($con) {
         // Query to fetch all orders

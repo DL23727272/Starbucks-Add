@@ -1,6 +1,7 @@
 <?php
 session_start();
-include "myConnection.php";
+
+include "../backend/myConnection.php";
 
   function fetchAccounts($con) {
       $accountsQuery = "SELECT * FROM customer_table";

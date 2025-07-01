@@ -1,6 +1,6 @@
 <?php
 session_start();
-include "myConnection.php";
+include "../backend/myConnection.php";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Extract form data
